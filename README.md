@@ -1,1 +1,2 @@
-# Protocol\nProtocol implementation for the current Minecraft version
+# Protocol
+Protocol implementation for the current Minecraft version
