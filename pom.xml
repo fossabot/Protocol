@@ -12,19 +12,18 @@
 
     <artifactId>protocol</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>StickyProtocol</name>
-    <url>https://laxio.org/</url>
+    <name>Protocol</name>
 
     <dependencies>
         <dependency>
             <groupId>org.laxio.piston</groupId>
-            <artifactId>stickypiston</artifactId>
+            <artifactId>piston-api</artifactId>
             <version>1.12.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
     <properties>
-        <buildtag.prefix>git-StickyProtocol-</buildtag.prefix>
+        <buildtag.prefix>git-Protocol-</buildtag.prefix>
     </properties>
 
     <build>
@@ -52,10 +51,10 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Implementation-Title>StickyProtocol</Implementation-Title>
+                            <Implementation-Title>Protocol</Implementation-Title>
                             <Implementation-Version>${describe}</Implementation-Version>
                             <Implementation-Vendor>${maven.build.timestamp}</Implementation-Vendor>
-                            <Specification-Title>StickyPiston</Specification-Title>
+                            <Specification-Title>Piston</Specification-Title>
                             <Specification-Version>${api.version}</Specification-Version>
                             <Specification-Vendor>Laxio Team</Specification-Vendor>
                         </manifestEntries>
