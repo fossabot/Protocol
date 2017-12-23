@@ -8,7 +8,7 @@ public class StickyProtocol implements Protocol {
     private static final String STICKY_PROTOCOL_VERSION; // Protocol Version (Implementation)
 
     public StickyProtocol() {
-
+        // something
     }
 
     @Override

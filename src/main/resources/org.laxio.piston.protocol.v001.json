@@ -1,5 +1,8 @@
 {
   "Implementation-Title": "${project.name}",
   "Implementation-Version": "${describe}",
-  "Implementation-Vendor": "${project.organization.name}"
+  "Implementation-Vendor": "${project.organization.name}",
+  "Specification-Title": "Minecraft",
+  "Specification-Version": "${minecraft.version}",
+  "Specification-Vendor": "Mojang"
 }
