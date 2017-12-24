@@ -19,7 +19,7 @@ public abstract class ProtocolPacket implements Packet {
 
     @Override
     public PistonServer getServer() {
-        return null;
+        return server;
     }
 
     @Override
