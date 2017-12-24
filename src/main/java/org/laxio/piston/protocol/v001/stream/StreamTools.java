@@ -40,59 +40,58 @@ public class StreamTools {
     }
 
     public static int readVarInt(PistonInput input) throws IOException {
-        int i = 0;
-        int j = 0;
-        while (true) {
-            int k = input.read();
-            if (k == -1)
-                throw new IOException("End of stream");
+        int numRead = 0;
+        int result = 0;
+        byte read;
+        do {
+            read = input.readByte();
+            int value = (read & 0b01111111);
+            result |= (value << (7 * numRead));
 
-            i |= (k & 0x7F) << j++ * 7;
+            numRead++;
+            if (numRead > 5)
+                throw new IOException("VarInt is too big");
+        } while ((read & 0b10000000) != 0);
 
-            if (j > 5)
-                throw new IOException("VarInt too big");
-
-            if ((k & 0x80) != 128)
-                break;
-        }
-
-        return i;
+        return result;
     }
 
     public static void writeVarInt(PistonOutput output, int data) throws IOException {
-        while (true) {
-            if ((data & 0xFFFFFF80) == 0) {
-                output.writeByte((byte) data);
-                return;
-            }
-
-            output.writeByte((byte) (data & 0x7F | 0x80));
-            data >>>= 7;
-        }
+        writeVar(output, data);
     }
 
     public static long readVarLong(PistonInput input) throws IOException {
-        long varInt = 0;
-        for (int i = 0; i < 10; i++) {
-            byte b = input.readByte();
-            varInt |= ((long) (b & (i != 9 ? 0x7F : 0x01))) << (i * 7);
+        int numRead = 0;
+        long result = 0;
+        byte read;
+        do {
+            read = input.readByte();
+            int value = (read & 0b01111111);
+            result |= (value << (7 * numRead));
 
-            if (i == 9 && (((b & 0x80) == 0x80) || ((b & 0x7E) != 0)))
-                throw new IOException("VarLong too big");
-            if ((b & 0x80) != 0x80)
-                break;
-        }
+            numRead++;
+            if (numRead > 10)
+                throw new IOException("VarLong is too big");
+        } while ((read & 0b10000000) != 0);
 
-        return varInt;
+        return result;
     }
 
     public static void writeVarLong(PistonOutput output, long data) throws IOException {
-        int length = 10;
-        for (int i = 9; i >= 0; i--)
-            if (((data >> (i * 7)) & (i != 9 ? 0x7F : 0x01)) == 0)
-                length--;
-        for (int i = 0; i < length; i++)
-            output.write((int) ((i == length - 1 ? 0x00 : 0x80) | ((data >> (i * 7)) & (i != 9 ? 0x7F : 0x01))));
+        writeVar(output, data);
+    }
+
+    public static void writeVar(PistonOutput output, long data) throws IOException {
+        do {
+            byte temp = (byte)(data & 0b01111111);
+            // Note: >>> means that the sign bit is shifted with the rest of the number rather than being left alone
+            data >>>= 7;
+            if (data != 0) {
+                temp |= 0b10000000;
+            }
+
+            output.writeByte(temp);
+        } while (data != 0);
     }
 
     public static Identifier readIdentifier(PistonInput input) throws IOException {
