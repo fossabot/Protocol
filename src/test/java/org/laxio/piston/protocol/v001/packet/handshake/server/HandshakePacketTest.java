@@ -9,7 +9,6 @@ class HandshakePacketTest {
     @Test
     void read() {
         // TODO: create test
-        // test
     }
 
 }
