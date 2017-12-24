@@ -30,6 +30,8 @@ public abstract class ProtocolPacket implements Packet {
         this.server = server;
     }
 
+
+
     @Override
     public void _read(PistonInput input) throws IOException {
         if (this.server == null)
@@ -41,11 +43,21 @@ public abstract class ProtocolPacket implements Packet {
     }
 
     @Override
+    public void read(PistonInput input) throws IOException {
+        throw new UnsupportedOperationException("This Packet cannot be read by the server");
+    }
+
+    @Override
     public void _write(PistonOutput output) throws IOException {
         if (this.server == null)
             throw new PacketConfigurationException("Server has not been set", this);
 
         write(output);
+    }
+
+    @Override
+    public void write(PistonOutput output) throws IOException {
+        throw new UnsupportedOperationException("This Packet cannot be written by the server");
     }
 
     /**

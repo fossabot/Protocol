@@ -1,7 +1,6 @@
 package org.laxio.piston.protocol.v001.packet.handshake.server;
 
 import org.laxio.piston.piston.protocol.stream.PistonInput;
-import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v001.packet.ProtocolPacket;
 import org.laxio.piston.protocol.v001.packet.ProtocolState;
 
@@ -36,11 +35,6 @@ public class HandshakePacket extends ProtocolPacket {
         this.address = input.readString();
         this.port = input.readUnsignedShort();
         this.nextState = ProtocolState.getById(input.readVarInt());
-    }
-
-    @Override
-    public void write(PistonOutput output) {
-        throw new UnsupportedOperationException("Handshake Packet cannot be written by the server");
     }
 
 }
