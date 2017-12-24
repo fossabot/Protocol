@@ -24,7 +24,7 @@
     </dependencies>
 
     <properties>
-        <buildtag.prefix>git-Protocol-</buildtag.prefix>
+        <buildtag.prefix>git-${project.version}-</buildtag.prefix>
     </properties>
 
     <build>
