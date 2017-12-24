@@ -59,6 +59,11 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
+    public int readUnsignedShort() {
+        return buf.readUnsignedShort();
+    }
+
+    @Override
     public UUID readUUID() throws IOException {
         return StreamTools.readUUID(this);
     }
