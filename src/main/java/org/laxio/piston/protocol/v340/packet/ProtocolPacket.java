@@ -33,30 +33,30 @@ public abstract class ProtocolPacket implements Packet {
 
 
     @Override
-    public void _read(PistonInput input) throws IOException {
+    public void read(PistonInput input) throws IOException {
         if (this.server == null)
             throw new PacketConfigurationException("Server has not been set", this);
 
         checkLock();
-        read(input);
+        onRead(input);
         lock();
     }
 
     @Override
-    public void read(PistonInput input) throws IOException {
+    public void onRead(PistonInput input) throws IOException {
         throw new UnsupportedOperationException("This Packet cannot be read by the server");
     }
 
     @Override
-    public void _write(PistonOutput output) throws IOException {
+    public void write(PistonOutput output) throws IOException {
         if (this.server == null)
             throw new PacketConfigurationException("Server has not been set", this);
 
-        write(output);
+        onWrite(output);
     }
 
     @Override
-    public void write(PistonOutput output) throws IOException {
+    public void onWrite(PistonOutput output) throws IOException {
         throw new UnsupportedOperationException("This Packet cannot be written by the server");
     }
 

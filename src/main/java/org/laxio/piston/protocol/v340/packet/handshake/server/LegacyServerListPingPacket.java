@@ -11,7 +11,7 @@ import java.io.IOException;
 public class LegacyServerListPingPacket extends ProtocolPacket {
 
     @Override
-    public void read(PistonInput input) throws IOException {
+    public void onRead(PistonInput input) throws IOException {
         // TODO: complete
     }
 

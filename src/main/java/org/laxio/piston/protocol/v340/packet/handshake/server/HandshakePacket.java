@@ -30,7 +30,7 @@ public class HandshakePacket extends ProtocolPacket {
     }
 
     @Override
-    public void read(PistonInput input) throws IOException {
+    public void onRead(PistonInput input) throws IOException {
         this.protocolVersion = input.readVarInt();
         this.address = input.readString();
         this.port = input.readUnsignedShort();

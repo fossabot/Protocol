@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LegacyServerListResponsePacket extends ProtocolPacket {
 
     @Override
-    public void write(PistonOutput output) throws IOException {
+    public void onWrite(PistonOutput output) throws IOException {
         // TODO: complete packet
     }
 
