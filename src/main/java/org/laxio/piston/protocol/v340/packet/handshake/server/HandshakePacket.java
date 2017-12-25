@@ -2,7 +2,7 @@ package org.laxio.piston.protocol.v340.packet.handshake.server;
 
 import org.laxio.piston.piston.protocol.stream.PistonInput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
-import org.laxio.piston.protocol.v340.packet.ProtocolState;
+import org.laxio.piston.piston.protocol.ProtocolState;
 
 import java.io.IOException;
 
