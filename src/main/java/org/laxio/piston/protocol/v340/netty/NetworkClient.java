@@ -2,6 +2,7 @@ package org.laxio.piston.protocol.v340.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
@@ -24,9 +25,12 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
 
     private final CompressionState compression;
     private ProtocolState state = ProtocolState.HANDSHAKE;
+
+    private PistonServer server;
     private Protocol protocol;
 
-    NetworkClient(Protocol protocol) {
+    NetworkClient(PistonServer server, Protocol protocol) {
+        this.server = server;
         this.compression = new CompressionState(-1);
         this.protocol = protocol;
     }
@@ -53,6 +57,14 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
 
     public ProtocolState getState() {
         return state;
+    }
+
+    public PistonServer getServer() {
+        return server;
+    }
+
+    public Protocol getProtocol() {
+        return protocol;
     }
 
     @Override

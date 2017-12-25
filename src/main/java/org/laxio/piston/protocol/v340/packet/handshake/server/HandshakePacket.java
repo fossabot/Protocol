@@ -5,6 +5,7 @@ import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 import org.laxio.piston.piston.protocol.ProtocolState;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class HandshakePacket extends ProtocolPacket {
 

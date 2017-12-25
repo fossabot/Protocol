@@ -4,6 +4,9 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import org.laxio.piston.piston.protocol.Packet;
+import org.laxio.piston.piston.protocol.PacketDirection;
+import org.laxio.piston.protocol.v340.netty.NetworkClient;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.PistonByteBuf;
 import org.laxio.piston.protocol.v340.stream.PistonInputStream;
@@ -18,24 +21,27 @@ import java.util.zip.DataFormatException;
  */
 public class PacketDecoder extends ByteToMessageDecoder {
 
+    private final NetworkClient client;
+
+    public PacketDecoder(NetworkClient client) {
+        this.client = client;
+    }
+
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws IOException, DataFormatException {
+    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
         if (byteBuf.readableBytes() > 0) {
-            Logger.getGlobal().info("Received packet: " + byteBuf.readableBytes() + " bytes");
             PistonByteBuf buffer = new PistonByteBuf(byteBuf);
-            PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
+            // PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
 
-            int id = stream.readVarInt();
-            // list.add()
-            // TODO: get packet by id, build packet, etc
+            int id = buffer.readVarInt();
 
-            if (id == 0x00) {
-                HandshakePacket packet = new HandshakePacket();
-                packet.read(stream);
-                Logger.getGlobal().info("Received: " + packet);
-            }
+            Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
+            packet.setServer(client.getServer());
+            packet.read(buffer);
 
-            Logger.getGlobal().info("Received packet: #" + id);
+            list.add(packet);
+
+            Logger.getGlobal().info("Received packet: #" + id + " - " + packet);
         }
     }
 

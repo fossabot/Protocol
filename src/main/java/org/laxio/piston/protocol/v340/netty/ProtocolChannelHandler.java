@@ -5,6 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
+import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.protocol.v340.StickyProtocolV340;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketDecoder;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketInflater;
@@ -17,9 +18,11 @@ import org.laxio.piston.protocol.v340.netty.pipeline.outbound.PacketToClientTran
 
 public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
+    private final PistonServer server;
     private final StickyProtocolV340 nativeProtocol;
 
-    ProtocolChannelHandler() {
+    ProtocolChannelHandler(PistonServer server) {
+        this.server = server;
         this.nativeProtocol = new StickyProtocolV340();
     }
 
@@ -32,7 +35,7 @@ public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
         }
 
         // TODO: encryption
-        NetworkClient client = new NetworkClient(this.nativeProtocol);
+        NetworkClient client = new NetworkClient(this.server, this.nativeProtocol);
 
         /*
          * ========================
@@ -60,7 +63,7 @@ public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
         // stage 5: input - decoder
         // decodes the data into a readable packet
-        channel.pipeline().addLast(new PacketDecoder());
+        channel.pipeline().addLast(new PacketDecoder(client));
 
         // stage 6: input - translate
         // translates client packet to native

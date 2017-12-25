@@ -6,6 +6,8 @@ import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.piston.protocol.PacketDirection;
+import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
+import org.laxio.piston.protocol.v340.packet.status.server.RequestPacket;
 import org.laxio.piston.protocol.v340.util.ProtocolMap;
 
 /**
@@ -20,6 +22,7 @@ public class StickyProtocolV340 implements Protocol {
 
     public StickyProtocolV340() {
         this.packets = new ProtocolMap(this);
+        init();
     }
 
     /**
@@ -44,6 +47,22 @@ public class StickyProtocolV340 implements Protocol {
     @Override
     public String getMinecraftVersion() {
         return MC_PROTOCOL_VERSION;
+    }
+
+    private void init() {
+        try {
+            // HANDSHAKE
+            this.packets.add(ProtocolState.HANDSHAKE, PacketDirection.SERVERBOUND, HandshakePacket.class);
+
+            // PLAY
+
+            // STATUS
+            this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
+
+            // LOGIN
+        } catch (UnsupportedPacketException ex) {
+            ex.printStackTrace();
+        }
     }
 
     static {
