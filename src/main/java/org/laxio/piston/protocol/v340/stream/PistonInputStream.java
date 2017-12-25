@@ -18,6 +18,11 @@ public class PistonInputStream extends DataInputStream implements PistonInput {
     }
 
     @Override
+    public int readableBytes() {
+        throw new UnsupportedOperationException("Streams don't yet have this feature");
+    }
+
+    @Override
     public UUID readUUID() throws IOException {
         return StreamTools.readUUID(this);
     }

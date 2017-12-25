@@ -24,6 +24,11 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
+    public int readableBytes() {
+        return buf.readableBytes();
+    }
+
+    @Override
     public int read() throws IOException {
         return readByte();
     }
