@@ -1,4 +1,4 @@
-package org.laxio.piston.protocol.v001.netty.pipeline;
+package org.laxio.piston.protocol.v001.netty.pipeline.inbound;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
