@@ -5,10 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
-import org.laxio.piston.protocol.v001.netty.pipeline.PacketDecoder;
-import org.laxio.piston.protocol.v001.netty.pipeline.PacketInflater;
-import org.laxio.piston.protocol.v001.netty.pipeline.PacketPrepender;
-import org.laxio.piston.protocol.v001.netty.pipeline.PacketSplitter;
+import org.laxio.piston.protocol.v001.netty.pipeline.*;
 
 public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
@@ -45,7 +42,7 @@ public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
         // stage 2: output - deflater
         // deflater - compresses the
-        channel.pipeline().addLast(new PacketPrepender());
+        channel.pipeline().addLast(new PacketDeflater(client));
     }
 
 }

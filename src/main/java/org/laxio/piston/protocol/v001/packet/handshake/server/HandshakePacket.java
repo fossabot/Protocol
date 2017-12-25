@@ -37,4 +37,14 @@ public class HandshakePacket extends ProtocolPacket {
         this.nextState = ProtocolState.getById(input.readVarInt());
     }
 
+    @Override
+    public String toString() {
+        return "HandshakePacket{" +
+                "protocolVersion=" + protocolVersion +
+                ", address='" + address + '\'' +
+                ", port=" + port +
+                ", nextState=" + nextState +
+                '}';
+    }
+
 }

@@ -5,7 +5,7 @@ package org.laxio.piston.protocol.v001.stream.compression;
  */
 public class CompressionState {
 
-    private int threshold;
+    private int threshold = -1;
 
     public CompressionState(int threshold) {
         this.threshold = threshold;

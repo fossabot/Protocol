@@ -9,6 +9,7 @@ import org.laxio.piston.protocol.v001.stream.PistonByteBuf;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
@@ -29,6 +30,7 @@ public class PacketInflater extends ByteToMessageDecoder {
             PistonByteBuf buffer = new PistonByteBuf(byteBuf);
 
             if (this.client.getCompression().isEnabled()) {
+                Logger.getGlobal().info("De-compressing packet: " + byteBuf.readableBytes() + " bytes");
                 int dlen = buffer.readVarInt(); // length of uncompressed data
                 if (dlen >= this.client.getCompression().getThreshold()) {
                     byte[] input = buffer.getBuf().array();   // Converts buffer to an array of bytes
@@ -49,7 +51,7 @@ public class PacketInflater extends ByteToMessageDecoder {
                 }
             }
 
-            list.add(byteBuf);
+            list.add(byteBuf.readBytes(byteBuf.readableBytes()));
         }
     }
 
