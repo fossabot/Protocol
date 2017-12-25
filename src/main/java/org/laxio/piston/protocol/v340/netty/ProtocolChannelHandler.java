@@ -5,6 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
+import org.laxio.piston.protocol.v340.StickyProtocolV340;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketDecoder;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketInflater;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketSplitter;
@@ -16,6 +17,12 @@ import org.laxio.piston.protocol.v340.netty.pipeline.outbound.PacketToClientTran
 
 public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
+    private final StickyProtocolV340 nativeProtocol;
+
+    ProtocolChannelHandler() {
+        this.nativeProtocol = new StickyProtocolV340();
+    }
+
     @Override
     protected void initChannel(SocketChannel channel) {
         try {
@@ -25,7 +32,7 @@ public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
         }
 
         // TODO: encryption
-        NetworkClient client = new NetworkClient();
+        NetworkClient client = new NetworkClient(this.nativeProtocol);
 
         /*
          * ========================

@@ -26,6 +26,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
             PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
 
             int id = stream.readVarInt();
+            // list.add()
             // TODO: get packet by id, build packet, etc
 
             if (id == 0x00) {

@@ -3,7 +3,10 @@ package org.laxio.piston.protocol.v340.netty;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import org.laxio.piston.piston.protocol.Packet;
+import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
+import org.laxio.piston.piston.protocol.ProtocolState;
+import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 
 import java.io.IOException;
@@ -20,9 +23,12 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
     private SocketAddress address;
 
     private final CompressionState compression;
+    private ProtocolState state = ProtocolState.HANDSHAKE;
+    private Protocol protocol;
 
-    NetworkClient() {
+    NetworkClient(Protocol protocol) {
         this.compression = new CompressionState(-1);
+        this.protocol = protocol;
     }
 
     public boolean isPreparing() {
@@ -45,6 +51,10 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
         return compression;
     }
 
+    public ProtocolState getState() {
+        return state;
+    }
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
@@ -57,6 +67,12 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
 
     @Override
     public void onMessage(ChannelHandlerContext ctx, Packet msg) {
+        if (msg instanceof HandshakePacket) {
+            HandshakePacket handshake = (HandshakePacket) msg;
+            state = handshake.getNextState();
+            return;
+        }
+
         // TODO: manage packet
     }
 
