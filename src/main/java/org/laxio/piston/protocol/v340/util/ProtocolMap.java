@@ -17,14 +17,28 @@ import java.util.Map;
 public class ProtocolMap {
 
     private final Protocol protocol;
+
+    private final ReverseMap<Class<? extends Packet>, Integer> packetMap;
     private final Map<ProtocolState, Map<PacketDirection, Integer>> ids;
     private final Map<ProtocolState, Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>>> packets;
 
     public ProtocolMap(Protocol protocol) {
         this.protocol = protocol;
+
+        this.packetMap = new ReverseHashMap<>();
         this.ids = new HashMap<>();
         this.packets = new HashMap<>();
         init();
+    }
+
+    public int getId(Packet packet) throws PacketNotFoundException {
+        Class<? extends Packet> cls = packet.getClass();
+        Integer result = packetMap.get(cls);
+        if (result == null) {
+            throw new PacketNotFoundException("Could not find registered Packet id for " + cls.getName());
+        }
+
+        return result;
     }
 
     /**
@@ -96,6 +110,7 @@ public class ProtocolMap {
 
         ReverseMap<Integer, Class<? extends Packet>> map = this.packets.get(state).get(direction);
         map.put(id, cls);
+        this.packetMap.put(cls, id);
     }
 
     /**

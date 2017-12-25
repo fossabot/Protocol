@@ -8,10 +8,15 @@ import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
+import org.laxio.piston.protocol.v340.packet.status.client.PongPacket;
+import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
+import org.laxio.piston.protocol.v340.packet.status.server.PingPacket;
+import org.laxio.piston.protocol.v340.packet.status.server.RequestPacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 
 import java.io.IOException;
 import java.net.SocketAddress;
+import java.util.logging.Logger;
 
 /**
  * Channel connection between the server and client, manages Packet conversion to/from bytes
@@ -82,14 +87,32 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> {
         if (msg instanceof HandshakePacket) {
             HandshakePacket handshake = (HandshakePacket) msg;
             state = handshake.getNextState();
+
+            // TODO: set protocol based on handshake#getProtocolVersion()
             return;
         }
 
+        if (msg instanceof RequestPacket) {
+            sendPacket(new ResponsePacket());
+            return;
+        }
+
+        if (msg instanceof PingPacket) {
+            PingPacket ping = (PingPacket) msg;
+            sendPacket(new PongPacket(ping.getPayload()));
+        }
         // TODO: manage packet
     }
 
-    public void sendPacket(Packet packet) throws IOException {
-        // TODO: send packet
+    public void sendPacket(Packet packet) {
+        Logger.getGlobal().info("Attempting to send packet: " + packet);
+
+        packet.setServer(server);
+        if (channel.eventLoop().inEventLoop()) {
+            channel.writeAndFlush(packet);
+        } else {
+            channel.eventLoop().execute(() -> channel.writeAndFlush(packet));
+        }
     }
 
 }

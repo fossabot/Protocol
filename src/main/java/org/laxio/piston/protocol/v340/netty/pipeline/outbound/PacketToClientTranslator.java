@@ -5,6 +5,7 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import org.laxio.piston.piston.protocol.Packet;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class PacketToClientTranslator extends MessageToMessageEncoder<Packet> {
 
@@ -12,6 +13,7 @@ public class PacketToClientTranslator extends MessageToMessageEncoder<Packet> {
     protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, List<Object> list) {
         // TODO: translate native packet to client
         list.add(packet);
+        Logger.getGlobal().info("Packet Translator // ignored");
     }
 
 }

@@ -7,6 +7,9 @@ import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
+import org.laxio.piston.protocol.v340.packet.status.client.PongPacket;
+import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
+import org.laxio.piston.protocol.v340.packet.status.server.PingPacket;
 import org.laxio.piston.protocol.v340.packet.status.server.RequestPacket;
 import org.laxio.piston.protocol.v340.util.ProtocolMap;
 
@@ -40,6 +43,11 @@ public class StickyProtocolV340 implements Protocol {
     }
 
     @Override
+    public int getId(Packet packet) throws PacketNotFoundException {
+        return packets.getId(packet);
+    }
+
+    @Override
     public String getVersion() {
         return STICKY_PROTOCOL_VERSION;
     }
@@ -58,6 +66,10 @@ public class StickyProtocolV340 implements Protocol {
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
+            this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, PingPacket.class);
+
+            this.packets.add(ProtocolState.STATUS, PacketDirection.CLIENTBOUND, ResponsePacket.class);
+            this.packets.add(ProtocolState.STATUS, PacketDirection.CLIENTBOUND, PongPacket.class);
 
             // LOGIN
         } catch (UnsupportedPacketException ex) {

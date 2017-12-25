@@ -81,25 +81,25 @@ public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
          * ========================
          */
 
-        // stage 1: output - translate
-        // translates native packet into client
-        channel.pipeline().addLast(new PacketToClientTranslator());
-
-        // stage 2: output - encode
-        // encodes the data into a client readable
-        channel.pipeline().addLast(new PacketEncoder());
-
-        // stage 3: output - prepender
-        // prepender - prepends packet length onto bytes before sending
-        channel.pipeline().addLast(new PacketPrepender());
+        // stage 5: output - encrypt
+        // encrypt - encrypt the packet
+        // channel.pipeline().addLast(new PacketEncrypter(client));
 
         // stage 4: output - deflater
         // deflater - compresses the packet
         channel.pipeline().addLast(new PacketDeflater(client));
 
-        // stage 5: output - encrypt
-        // encrypt - encrypt the packet
-        // channel.pipeline().addLast(new PacketEncrypter(client));
+        // stage 3: output - prepender
+        // prepender - prepends packet length onto bytes before sending
+        channel.pipeline().addLast(new PacketPrepender());
+
+        // stage 2: output - encode
+        // encodes the data into a client readable
+        channel.pipeline().addLast(new PacketEncoder(client));
+
+        // stage 1: output - translate
+        // translates native packet into client
+        channel.pipeline().addLast(new PacketToClientTranslator());
     }
 
 }
