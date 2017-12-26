@@ -16,4 +16,9 @@ public class LegacyServerListResponsePacket extends ProtocolPacket {
         // TODO: complete packet
     }
 
+    @Override
+    public String toString() {
+        return "LegacyServerListResponsePacket{}";
+    }
+
 }

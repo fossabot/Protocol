@@ -26,4 +26,11 @@ public class SetCompressionPacket extends ProtocolPacket {
         output.writeVarInt(threshold);
     }
 
+    @Override
+    public String toString() {
+        return "SetCompressionPacket{" +
+                "threshold=" + threshold +
+                '}';
+    }
+
 }

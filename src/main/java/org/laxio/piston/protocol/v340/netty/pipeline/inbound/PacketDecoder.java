@@ -34,6 +34,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
             // PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
 
             int id = buffer.readVarInt();
+            Logger.getGlobal().info("Read id #" + id);
 
             Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
             packet.setServer(client.getServer());

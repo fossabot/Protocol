@@ -32,4 +32,11 @@ public class SpawnObjectPacket extends ProtocolPacket {
         output.writeVelocity(entity.getVelocity());
     }
 
+    @Override
+    public String toString() {
+        return "SpawnObjectPacket{" +
+                "entity=" + entity +
+                '}';
+    }
+
 }

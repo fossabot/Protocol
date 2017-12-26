@@ -26,4 +26,11 @@ public class PongPacket extends ProtocolPacket {
         output.writeLong(payload);
     }
 
+    @Override
+    public String toString() {
+        return "PongPacket{" +
+                "payload=" + payload +
+                '}';
+    }
+
 }

@@ -5,6 +5,7 @@ import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 import java.security.PublicKey;
+import java.util.Arrays;
 
 public class EncyrptionRequestPacket extends ProtocolPacket {
 
@@ -39,6 +40,15 @@ public class EncyrptionRequestPacket extends ProtocolPacket {
         output.writeString(serverName);
         output.writeBytes(key.getEncoded());
         output.writeBytes(verifyToken);
+    }
+
+    @Override
+    public String toString() {
+        return "EncyrptionRequestPacket{" +
+                "serverName='" + serverName + '\'' +
+                ", key=" + key +
+                ", verifyToken=" + Arrays.toString(verifyToken) +
+                '}';
     }
 
 }

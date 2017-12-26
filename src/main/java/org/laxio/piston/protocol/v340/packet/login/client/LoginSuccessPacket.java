@@ -5,6 +5,7 @@ import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class LoginSuccessPacket extends ProtocolPacket {
 
@@ -26,6 +27,14 @@ public class LoginSuccessPacket extends ProtocolPacket {
     public void onWrite(PistonOutput output) throws IOException {
         output.writeUUID(player.getUUID(), true);
         output.writeString(player.getName());
+        Logger.getGlobal().info("Sent " + player.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "LoginSuccessPacket{" +
+                "player=" + player +
+                '}';
     }
 
 }

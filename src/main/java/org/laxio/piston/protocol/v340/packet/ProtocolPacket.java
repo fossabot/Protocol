@@ -97,4 +97,6 @@ public abstract class ProtocolPacket implements Packet {
         }
     }
 
+    public abstract String toString();
+
 }

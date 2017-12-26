@@ -15,4 +15,9 @@ public class LegacyServerListPingPacket extends ProtocolPacket {
         // TODO: complete
     }
 
+    @Override
+    public String toString() {
+        return "LegacyServerListPingPacket{}";
+    }
+
 }

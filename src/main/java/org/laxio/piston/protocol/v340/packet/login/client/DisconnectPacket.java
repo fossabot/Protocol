@@ -27,4 +27,11 @@ public class DisconnectPacket extends ProtocolPacket {
         output.writeString(chat.toString());
     }
 
+    @Override
+    public String toString() {
+        return "DisconnectPacket{" +
+                "chat=" + chat +
+                '}';
+    }
+
 }

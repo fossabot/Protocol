@@ -19,4 +19,11 @@ public class PingPacket extends ProtocolPacket {
         this.payload = input.readLong();
     }
 
+    @Override
+    public String toString() {
+        return "PingPacket{" +
+                "payload=" + payload +
+                '}';
+    }
+
 }

@@ -22,7 +22,7 @@ public class ResponsePacket extends ProtocolPacket {
 
         JSONObject players = new JSONObject();
         players.put("max", 0);
-        players.put("online", 99999);
+        players.put("online", 1);
 
         JSONArray sample = new JSONArray();
         JSONObject para = new JSONObject();
@@ -36,8 +36,12 @@ public class ResponsePacket extends ProtocolPacket {
         description.put("text", "Sp0oFeD");
         json.put("description", description);
 
-        Logger.getGlobal().info("Sending " + json.toString());
         output.writeString(json.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "ResponsePacket{}";
     }
 
 }

@@ -18,4 +18,11 @@ public class LoginStartPacket extends ProtocolPacket {
         this.name = input.readString();
     }
 
+    @Override
+    public String toString() {
+        return "LoginStartPacket{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
 }

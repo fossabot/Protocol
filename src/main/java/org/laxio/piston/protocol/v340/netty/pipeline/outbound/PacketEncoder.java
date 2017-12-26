@@ -32,7 +32,6 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
         PistonOutputStream stream = new PistonOutputStream(new ByteBufOutputStream(buffer));
         stream.writeVarInt(id);
         packet.write(stream);
-        Logger.getGlobal().info("Sent " + packet.getClass().getSimpleName());
     }
 
 }

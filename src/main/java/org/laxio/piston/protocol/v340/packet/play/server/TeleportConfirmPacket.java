@@ -18,4 +18,11 @@ public class TeleportConfirmPacket extends ProtocolPacket {
         this.teleportId = input.readVarInt();
     }
 
+    @Override
+    public String toString() {
+        return "TeleportConfirmPacket{" +
+                "teleportId=" + teleportId +
+                '}';
+    }
+
 }

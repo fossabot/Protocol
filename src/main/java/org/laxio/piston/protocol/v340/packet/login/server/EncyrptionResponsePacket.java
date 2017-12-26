@@ -6,6 +6,7 @@ import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 import java.security.PublicKey;
+import java.util.Arrays;
 
 public class EncyrptionResponsePacket extends ProtocolPacket {
 
@@ -24,6 +25,14 @@ public class EncyrptionResponsePacket extends ProtocolPacket {
     public void onRead(PistonInput input) throws IOException {
         sharedSecret = input.readBytes();
         verifyToken = input.readBytes();
+    }
+
+    @Override
+    public String toString() {
+        return "EncyrptionResponsePacket{" +
+                "sharedSecret=" + Arrays.toString(sharedSecret) +
+                ", verifyToken=" + Arrays.toString(verifyToken) +
+                '}';
     }
 
 }

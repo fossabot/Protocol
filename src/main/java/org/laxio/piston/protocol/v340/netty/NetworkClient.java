@@ -6,19 +6,12 @@ import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
-import org.laxio.piston.protocol.v340.listener.StatusListener;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
-import org.laxio.piston.protocol.v340.packet.status.client.PongPacket;
-import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
-import org.laxio.piston.protocol.v340.packet.status.server.PingPacket;
-import org.laxio.piston.protocol.v340.packet.status.server.RequestPacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 
-import java.io.IOException;
 import java.net.SocketAddress;
-import java.util.logging.Logger;
 
 /**
  * Channel connection between the server and client, manages Packet conversion to/from bytes
@@ -40,8 +33,6 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         this.server = server;
         this.compression = new CompressionState(-1);
         this.protocol = protocol;
-
-        this.server.getManager().register(new StatusListener());
     }
 
     public boolean isPreparing() {
@@ -64,8 +55,14 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         return compression;
     }
 
+    @Override
     public ProtocolState getState() {
         return state;
+    }
+
+    @Override
+    public void setState(ProtocolState state) {
+        this.state = state;
     }
 
     public PistonServer getServer() {
@@ -101,8 +98,6 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
     @Override
     public void sendPacket(Packet packet) {
-        Logger.getGlobal().info("Attempting to send packet: " + packet);
-
         packet.setServer(server);
         packet.setConnection(this);
         server.getManager().call(packet);
