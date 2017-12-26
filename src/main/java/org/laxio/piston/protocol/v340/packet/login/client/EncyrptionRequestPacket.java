@@ -12,6 +12,10 @@ public class EncyrptionRequestPacket extends ProtocolPacket {
     private PublicKey key;
     private byte[] verifyToken;
 
+    public EncyrptionRequestPacket() {
+        // required empty packet
+    }
+
     public EncyrptionRequestPacket(String serverName, PublicKey key, byte[] verifyToken) {
         this.serverName = serverName;
         this.key = key;

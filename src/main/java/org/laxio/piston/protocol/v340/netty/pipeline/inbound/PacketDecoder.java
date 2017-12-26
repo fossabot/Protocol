@@ -37,6 +37,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
             Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
             packet.setServer(client.getServer());
+            packet.setConnection(client);
             packet.read(buffer);
 
             list.add(packet);

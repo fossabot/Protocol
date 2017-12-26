@@ -10,6 +10,10 @@ public class DisconnectPacket extends ProtocolPacket {
 
     private JSONObject chat;
 
+    public DisconnectPacket() {
+        // required empty packet
+    }
+
     public DisconnectPacket(JSONObject chat) {
         this.chat = chat;
     }

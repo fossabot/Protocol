@@ -29,7 +29,6 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
             throw new IOException("Can't serialize unregistered packet", ex);
         }
 
-        Logger.getGlobal().info("Attempting to send " + packet);
         PistonOutputStream stream = new PistonOutputStream(new ByteBufOutputStream(buffer));
         stream.writeVarInt(id);
         packet.write(stream);

@@ -10,7 +10,7 @@ public class PongPacket extends ProtocolPacket {
     private long payload;
 
     public PongPacket() {
-        // default constructor
+        // required empty packet
     }
 
     public PongPacket(long payload) {

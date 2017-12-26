@@ -23,19 +23,13 @@ public class PacketPrepender extends MessageToByteEncoder<ByteBuf> {
         int bytes = input.readableBytes();
         int length = getVarIntLength(bytes);
 
-        Logger.getGlobal().info("Encoding packet: " + bytes + " len: " + length);
         if (length > 3) {
             throw new UnsupportedOperationException("Unable to fit " + bytes + " into 3 bytes");
         } else {
-            Logger.getGlobal().info("Writing packet");
             PistonOutputStream stream = new PistonOutputStream(new ByteBufOutputStream(output));
-            Logger.getGlobal().info("Built stream");
             output.ensureWritable(length + bytes);
-            Logger.getGlobal().info("Ensured writeable");
             stream.writeVarInt(bytes);
-            Logger.getGlobal().info("Wrote length");
             output.writeBytes(input, input.readerIndex(), bytes);
-            Logger.getGlobal().info("Wrote data");
         }
     }
 

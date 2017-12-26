@@ -13,7 +13,6 @@ public class PacketToClientTranslator extends MessageToMessageEncoder<Packet> {
     protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, List<Object> list) {
         // TODO: translate native packet to client
         list.add(packet);
-        Logger.getGlobal().info("Packet Translator // ignored");
     }
 
 }

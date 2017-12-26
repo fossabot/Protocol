@@ -10,6 +10,10 @@ public class SpawnObjectPacket extends ProtocolPacket {
 
     private Entity entity;
 
+    public SpawnObjectPacket() {
+        // required empty packet
+    }
+
     public SpawnObjectPacket(Entity entity) {
         this.entity = entity;
     }

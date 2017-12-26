@@ -10,6 +10,10 @@ public class LoginSuccessPacket extends ProtocolPacket {
 
     private Player player;
 
+    public LoginSuccessPacket() {
+        // required empty packet
+    }
+
     public LoginSuccessPacket(Player player) {
         this.player = player;
     }

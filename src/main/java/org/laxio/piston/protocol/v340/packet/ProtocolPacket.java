@@ -2,6 +2,7 @@ package org.laxio.piston.protocol.v340.packet;
 
 import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.exception.protocol.packet.PacketConfigurationException;
+import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.stream.PistonInput;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
@@ -15,7 +16,22 @@ import java.io.IOException;
 public abstract class ProtocolPacket implements Packet {
 
     private boolean locked;
+
+    private Connection connection;
     private PistonServer server;
+
+    @Override
+    public Connection getConnection() {
+        return connection;
+    }
+
+    @Override
+    public void setConnection(Connection connection) {
+        if (this.connection != null)
+            throw new PacketConfigurationException("Connection already set", this);
+
+        this.connection = connection;
+    }
 
     @Override
     public PistonServer getServer() {
@@ -30,12 +46,13 @@ public abstract class ProtocolPacket implements Packet {
         this.server = server;
     }
 
-
-
     @Override
     public void read(PistonInput input) throws IOException {
         if (this.server == null)
             throw new PacketConfigurationException("Server has not been set", this);
+
+        if (this.connection == null)
+            throw new PacketConfigurationException("Connection has not been set", this);
 
         checkLock();
         onRead(input);
@@ -51,6 +68,9 @@ public abstract class ProtocolPacket implements Packet {
     public void write(PistonOutput output) throws IOException {
         if (this.server == null)
             throw new PacketConfigurationException("Server has not been set", this);
+
+        if (this.connection == null)
+            throw new PacketConfigurationException("Connection has not been set", this);
 
         onWrite(output);
     }
