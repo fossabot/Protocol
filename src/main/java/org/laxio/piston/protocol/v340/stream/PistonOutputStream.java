@@ -1,7 +1,9 @@
 package org.laxio.piston.protocol.v340.stream;
 
 import org.laxio.piston.piston.data.Identifier;
+import org.laxio.piston.piston.entity.Velocity;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
+import org.laxio.piston.piston.world.Location;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,8 +26,13 @@ public class PistonOutputStream extends DataOutputStream implements PistonOutput
 
     @Override
     public PistonOutput writeUUID(UUID data) throws IOException {
-        writeLong(data.getMostSignificantBits());
-        writeLong(data.getLeastSignificantBits());
+        StreamTools.writeUUID(this, data);
+        return this;
+    }
+
+    @Override
+    public PistonOutput writeUUID(UUID data, boolean dashes) throws IOException {
+        StreamTools.writeUUID(this, data, dashes);
         return this;
     }
 
@@ -50,6 +57,30 @@ public class PistonOutputStream extends DataOutputStream implements PistonOutput
     @Override
     public PistonOutput writeIdentifier(Identifier data) throws IOException {
         StreamTools.writeIdentifier(this, data);
+        return this;
+    }
+
+    @Override
+    public PistonOutput writeLocation(Location data) throws IOException {
+        StreamTools.writeLocation(this, data);
+        return this;
+    }
+
+    @Override
+    public PistonOutput writeLocation(Location data, boolean yawPitch) throws IOException {
+        StreamTools.writeLocation(this, data, yawPitch);
+        return this;
+    }
+
+    @Override
+    public PistonOutput writeRotation(float data) throws IOException {
+        StreamTools.writeRotation(this, data);
+        return this;
+    }
+
+    @Override
+    public PistonOutput writeVelocity(Velocity data) throws IOException {
+        StreamTools.writeVelocity(this, data);
         return this;
     }
 

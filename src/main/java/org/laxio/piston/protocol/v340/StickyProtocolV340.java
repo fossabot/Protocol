@@ -6,7 +6,17 @@ import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.piston.protocol.PacketDirection;
+import org.laxio.piston.protocol.v340.packet.handshake.client.LegacyServerListResponsePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
+import org.laxio.piston.protocol.v340.packet.handshake.server.LegacyServerListPingPacket;
+import org.laxio.piston.protocol.v340.packet.login.client.DisconnectPacket;
+import org.laxio.piston.protocol.v340.packet.login.client.EncyrptionRequestPacket;
+import org.laxio.piston.protocol.v340.packet.login.client.LoginSuccessPacket;
+import org.laxio.piston.protocol.v340.packet.login.client.SetCompressionPacket;
+import org.laxio.piston.protocol.v340.packet.login.server.EncyrptionResponsePacket;
+import org.laxio.piston.protocol.v340.packet.login.server.LoginStartPacket;
+import org.laxio.piston.protocol.v340.packet.play.client.SpawnObjectPacket;
+import org.laxio.piston.protocol.v340.packet.play.server.TeleportConfirmPacket;
 import org.laxio.piston.protocol.v340.packet.status.client.PongPacket;
 import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
 import org.laxio.piston.protocol.v340.packet.status.server.PingPacket;
@@ -61,8 +71,14 @@ public class StickyProtocolV340 implements Protocol {
         try {
             // HANDSHAKE
             this.packets.add(ProtocolState.HANDSHAKE, PacketDirection.SERVERBOUND, HandshakePacket.class);
+            this.packets.add(ProtocolState.HANDSHAKE, PacketDirection.SERVERBOUND, 0xFE, LegacyServerListPingPacket.class);
+
+            this.packets.add(ProtocolState.HANDSHAKE, PacketDirection.CLIENTBOUND, 0xFF, LegacyServerListResponsePacket.class);
 
             // PLAY
+            this.packets.add(ProtocolState.PLAY, PacketDirection.SERVERBOUND, TeleportConfirmPacket.class);
+
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnObjectPacket.class);
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
@@ -72,6 +88,13 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.STATUS, PacketDirection.CLIENTBOUND, PongPacket.class);
 
             // LOGIN
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, LoginStartPacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, EncyrptionResponsePacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, LoginSuccessPacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, SetCompressionPacket.class);
+
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, DisconnectPacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, EncyrptionRequestPacket.class);
         } catch (UnsupportedPacketException ex) {
             ex.printStackTrace();
         }

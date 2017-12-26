@@ -1,8 +1,10 @@
 package org.laxio.piston.protocol.v340.stream;
 
 import org.laxio.piston.piston.data.Identifier;
+import org.laxio.piston.piston.entity.Velocity;
 import org.laxio.piston.piston.protocol.stream.PistonInput;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
+import org.laxio.piston.piston.world.Location;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -16,10 +18,27 @@ public class StreamTools {
     private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("(?<namespace>[0-9a-z_-]+):(?<name>[0-9a-z\\-\\.\\/\\_]+)");
 
     public static UUID readUUID(PistonInput input) throws IOException {
-        return new UUID(input.readLong(), input.readLong());
+        return readUUID(input, false);
     }
 
     public static void writeUUID(PistonOutput output, UUID data) throws IOException {
+        writeUUID(output, data, true);
+    }
+
+    public static UUID readUUID(PistonInput input, boolean dashes) throws IOException {
+        if (dashes) {
+            return UUID.fromString(input.readString());
+        }
+
+        return new UUID(input.readLong(), input.readLong());
+    }
+
+    public static void writeUUID(PistonOutput output, UUID data, boolean dashes) throws IOException {
+        if (dashes) {
+            writeString(output, data.toString());
+            return;
+        }
+
         output.writeLong(data.getMostSignificantBits());
         output.writeLong(data.getLeastSignificantBits());
     }
@@ -110,6 +129,66 @@ public class StreamTools {
 
     public static void writeIdentifier(PistonOutput output, Identifier data) throws IOException {
         output.writeString(data.toString());
+    }
+
+    public static Location readLocation(PistonInput input) throws IOException {
+        return readLocation(input, false);
+    }
+
+    public static PistonOutput writeLocation(PistonOutput output, Location data) throws IOException {
+        return writeLocation(output, data, false);
+    }
+
+    public static Location readLocation(PistonInput input, boolean yawPitch) throws IOException {
+        double x = input.readDouble();
+        double y = input.readDouble();
+        double z = input.readDouble();
+
+        if (yawPitch) {
+            float yaw = readRotation(input);
+            float pitch = readRotation(input);
+            return new Location(x, y, z, yaw, pitch);
+        }
+
+        return new Location(x, y, z);
+    }
+
+    public static PistonOutput writeLocation(PistonOutput output, Location data, boolean yawPitch) throws IOException {
+        output.writeDouble(data.getX());
+        output.writeDouble(data.getY());
+        output.writeDouble(data.getZ());
+
+        if (yawPitch) {
+            writeRotation(output, data.getYaw());
+            writeRotation(output, data.getPitch());
+        }
+
+        return output;
+    }
+
+    public static float readRotation(PistonInput input) throws IOException {
+        return (float) (input.readByte() / 360) * 256F;
+    }
+
+    public static PistonOutput writeRotation(PistonOutput output, float value) throws IOException {
+        int i = (int) (value * 256D) / 360;
+        output.write(i);
+        return output;
+    }
+
+    public static Velocity readVelocity(PistonInput input) throws IOException {
+        short x = input.readShort();
+        short y = input.readShort();
+        short z = input.readShort();
+
+        return new Velocity(x, y, z);
+    }
+
+    public static PistonOutput writeVelocity(PistonOutput output, Velocity value) throws IOException {
+        output.writeShort(value.getX());
+        output.writeShort(value.getY());
+        output.writeShort(value.getZ());
+        return output;
     }
 
 }

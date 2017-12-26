@@ -2,8 +2,10 @@ package org.laxio.piston.protocol.v340.stream;
 
 import io.netty.buffer.ByteBuf;
 import org.laxio.piston.piston.data.Identifier;
+import org.laxio.piston.piston.entity.Velocity;
 import org.laxio.piston.piston.protocol.stream.PistonInput;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
+import org.laxio.piston.piston.world.Location;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -49,6 +51,16 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
+    public byte[] readBytes() throws IOException {
+        return readBytes(readVarInt());
+    }
+
+    @Override
+    public byte[] readBytes(int length) throws IOException {
+        return buf.readBytes(length).array();
+    }
+
+    @Override
     public void write(byte[] data) {
         buf.writeBytes(data);
     }
@@ -69,6 +81,46 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
+    public double readDouble() {
+        return buf.readDouble();
+    }
+
+    @Override
+    public void writeDouble(double data) {
+        buf.writeDouble(data);
+    }
+
+    @Override
+    public float readFloat() {
+        return buf.readFloat();
+    }
+
+    @Override
+    public void writeFloat(float data) {
+        buf.writeFloat(data);
+    }
+
+    @Override
+    public short readShort() {
+        return buf.readShort();
+    }
+
+    @Override
+    public void writeShort(int data) {
+        buf.writeShort(data);
+    }
+
+    @Override
+    public int readInt() {
+        return buf.readInt();
+    }
+
+    @Override
+    public void writeInt(int data) {
+        buf.writeInt(data);
+    }
+
+    @Override
     public UUID readUUID() throws IOException {
         return StreamTools.readUUID(this);
     }
@@ -76,6 +128,17 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     @Override
     public PistonOutput writeUUID(UUID data) throws IOException {
         StreamTools.writeUUID(this, data);
+        return this;
+    }
+
+    @Override
+    public UUID readUUID(boolean dashes) throws IOException {
+        return StreamTools.readUUID(this, dashes);
+    }
+
+    @Override
+    public PistonOutput writeUUID(UUID data, boolean dashes) throws IOException {
+        StreamTools.writeUUID(this, data, dashes);
         return this;
     }
 
@@ -121,6 +184,46 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     public PistonOutput writeIdentifier(Identifier data) throws IOException {
         StreamTools.writeIdentifier(this, data);
         return this;
+    }
+
+    @Override
+    public Location readLocation() throws IOException {
+        return StreamTools.readLocation(this);
+    }
+
+    @Override
+    public PistonOutput writeLocation(Location data) throws IOException {
+        return StreamTools.writeLocation(this, data);
+    }
+
+    @Override
+    public Location readLocation(boolean yawPitch) throws IOException {
+        return StreamTools.readLocation(this, yawPitch);
+    }
+
+    @Override
+    public PistonOutput writeLocation(Location data, boolean yawPitch) throws IOException {
+        return StreamTools.writeLocation(this, data, yawPitch);
+    }
+
+    @Override
+    public float readRotation() throws IOException {
+        return StreamTools.readRotation(this);
+    }
+
+    @Override
+    public PistonOutput writeRotation(float data) throws IOException {
+        return StreamTools.writeRotation(this, data);
+    }
+
+    @Override
+    public Velocity readVelocity() throws IOException {
+        return StreamTools.readVelocity(this);
+    }
+
+    @Override
+    public PistonOutput writeVelocity(Velocity data) throws IOException {
+        return StreamTools.writeVelocity(this, data);
     }
 
 }
