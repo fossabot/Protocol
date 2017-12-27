@@ -36,7 +36,6 @@ public class StreamTools {
 
     public static void writeUUID(PistonOutput output, UUID data, boolean dashes) throws IOException {
         if (dashes) {
-            Logger.getGlobal().info("Sent " + data.toString());
             writeString(output, data.toString());
             return;
         }

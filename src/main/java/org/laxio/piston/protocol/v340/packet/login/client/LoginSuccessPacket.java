@@ -27,7 +27,6 @@ public class LoginSuccessPacket extends ProtocolPacket {
     public void onWrite(PistonOutput output) throws IOException {
         output.writeUUID(player.getUUID(), true);
         output.writeString(player.getName());
-        Logger.getGlobal().info("Sent " + player.getName());
     }
 
     @Override
