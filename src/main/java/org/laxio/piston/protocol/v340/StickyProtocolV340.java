@@ -10,7 +10,7 @@ import org.laxio.piston.protocol.v340.packet.handshake.client.LegacyServerListRe
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.LegacyServerListPingPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.DisconnectPacket;
-import org.laxio.piston.protocol.v340.packet.login.client.EncyrptionRequestPacket;
+import org.laxio.piston.protocol.v340.packet.login.client.EncryptionRequestPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.LoginSuccessPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.SetCompressionPacket;
 import org.laxio.piston.protocol.v340.packet.login.server.EncyrptionResponsePacket;
@@ -99,7 +99,7 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, SetCompressionPacket.class);
 
             this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, DisconnectPacket.class);
-            this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, EncyrptionRequestPacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, EncryptionRequestPacket.class);
         } catch (UnsupportedPacketException ex) {
             ex.printStackTrace();
         }

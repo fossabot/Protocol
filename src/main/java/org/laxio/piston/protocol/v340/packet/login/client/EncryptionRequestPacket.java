@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.security.PublicKey;
 import java.util.Arrays;
 
-public class EncyrptionRequestPacket extends ProtocolPacket {
+public class EncryptionRequestPacket extends ProtocolPacket {
 
     private String serverName;
     private PublicKey key;
     private byte[] verifyToken;
 
-    public EncyrptionRequestPacket() {
+    public EncryptionRequestPacket() {
         // required empty packet
     }
 
-    public EncyrptionRequestPacket(String serverName, PublicKey key, byte[] verifyToken) {
+    public EncryptionRequestPacket(String serverName, PublicKey key, byte[] verifyToken) {
         this.serverName = serverName;
         this.key = key;
         this.verifyToken = verifyToken;
@@ -44,7 +44,7 @@ public class EncyrptionRequestPacket extends ProtocolPacket {
 
     @Override
     public String toString() {
-        return "EncyrptionRequestPacket{" +
+        return "EncryptionRequestPacket{" +
                 "serverName='" + serverName + '\'' +
                 ", key=" + key +
                 ", verifyToken=" + Arrays.toString(verifyToken) +
