@@ -9,7 +9,6 @@ import org.laxio.piston.piston.world.Location;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.UUID;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,7 +102,7 @@ public class StreamTools {
 
     public static void writeVar(PistonOutput output, long data) throws IOException {
         do {
-            byte temp = (byte)(data & 0b01111111);
+            byte temp = (byte) (data & 0b01111111);
             // Note: >>> means that the sign bit is shifted with the rest of the number rather than being left alone
             data >>>= 7;
             if (data != 0) {

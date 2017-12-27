@@ -6,8 +6,8 @@ import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
-import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
 import org.laxio.piston.piston.protocol.ProtocolState;
+import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 

@@ -3,9 +3,9 @@ package org.laxio.piston.protocol.v340;
 import org.laxio.piston.piston.exception.protocol.packet.PacketNotFoundException;
 import org.laxio.piston.piston.exception.protocol.packet.UnsupportedPacketException;
 import org.laxio.piston.piston.protocol.Packet;
+import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
-import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.protocol.v340.packet.handshake.client.LegacyServerListResponsePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.LegacyServerListPingPacket;
@@ -42,11 +42,12 @@ public class StickyProtocolV340 implements Protocol {
 
     /**
      * Finds and constructs a packet based on the supplied information
-     * @param state The state that the protocol is in
+     *
+     * @param state     The state that the protocol is in
      * @param direction The direction which the packet is travelling
-     * @param id The id number of the packet
+     * @param id        The id number of the packet
      * @return The constructed Packet
-     * @throws PacketNotFoundException If no Packet is found matching the criteria
+     * @throws PacketNotFoundException    If no Packet is found matching the criteria
      * @throws UnsupportedPacketException If the Packet cannot be constructed via reflection
      */
     @Override

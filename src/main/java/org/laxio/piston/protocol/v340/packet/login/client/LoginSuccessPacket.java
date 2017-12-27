@@ -5,7 +5,6 @@ import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class LoginSuccessPacket extends ProtocolPacket {
 

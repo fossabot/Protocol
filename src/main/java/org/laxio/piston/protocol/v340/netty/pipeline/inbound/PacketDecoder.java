@@ -1,20 +1,14 @@
 package org.laxio.piston.protocol.v340.netty.pipeline.inbound;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufInputStream;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.protocol.v340.netty.NetworkClient;
-import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.PistonByteBuf;
-import org.laxio.piston.protocol.v340.stream.PistonInputStream;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.zip.DataFormatException;
 
 /**
  * Decodes the buffer into a readable packet

@@ -20,6 +20,7 @@ public class NetworkServer extends Thread {
 
     /**
      * Constructs a network server using the supplied address
+     *
      * @param address The address to bind to
      */
     public NetworkServer(PistonServer server, InetSocketAddress address) {

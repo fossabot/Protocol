@@ -13,6 +13,7 @@ public class CompressionState {
 
     /**
      * Gets the threshold at which a packet becomes compressed
+     *
      * @return The threshold at which a packet becomes compressed
      */
     public int getThreshold() {
@@ -21,6 +22,7 @@ public class CompressionState {
 
     /**
      * Sets the threshold for compression, negative values disable compression
+     *
      * @param threshold The threshold value to set
      */
     public void setThreshold(int threshold) {
@@ -29,6 +31,7 @@ public class CompressionState {
 
     /**
      * Returns if the channel should be compressed
+     *
      * @return True if compression is enabled, false otherwise
      */
     public boolean isEnabled() {

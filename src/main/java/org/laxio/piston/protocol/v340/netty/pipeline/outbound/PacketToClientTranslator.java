@@ -5,7 +5,6 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import org.laxio.piston.piston.protocol.Packet;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class PacketToClientTranslator extends MessageToMessageEncoder<Packet> {
 

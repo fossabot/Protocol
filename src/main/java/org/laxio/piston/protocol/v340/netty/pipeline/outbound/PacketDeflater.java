@@ -24,8 +24,8 @@ public class PacketDeflater extends MessageToByteEncoder<ByteBuf> {
      * Compresses the input buffer when compression is set and the packet is larger than the threshold
      *
      * @param channelHandlerContext The channel which this packet is being sent through
-     * @param input The input buffer
-     * @param output The output buffer (may be compressed)
+     * @param input                 The input buffer
+     * @param output                The output buffer (may be compressed)
      * @throws Exception
      */
     @Override

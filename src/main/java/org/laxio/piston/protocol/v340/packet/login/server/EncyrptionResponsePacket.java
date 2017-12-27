@@ -1,11 +1,9 @@
 package org.laxio.piston.protocol.v340.packet.login.server;
 
 import org.laxio.piston.piston.protocol.stream.PistonInput;
-import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.Arrays;
 
 public class EncyrptionResponsePacket extends ProtocolPacket {

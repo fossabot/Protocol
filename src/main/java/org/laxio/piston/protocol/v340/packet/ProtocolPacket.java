@@ -89,6 +89,7 @@ public abstract class ProtocolPacket implements Packet {
 
     /**
      * Checks the lock status
+     *
      * @throws PacketConfigurationException If the Packet is locked
      */
     private void checkLock() {

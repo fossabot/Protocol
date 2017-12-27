@@ -10,7 +10,6 @@ import org.laxio.piston.protocol.v340.netty.NetworkClient;
 import org.laxio.piston.protocol.v340.stream.PistonOutputStream;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
 

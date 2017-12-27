@@ -6,7 +6,8 @@ import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 public class RequestPacket extends ProtocolPacket {
 
     @Override
-    public void onRead(PistonInput input) {}
+    public void onRead(PistonInput input) {
+    }
 
     @Override
     public String toString() {
