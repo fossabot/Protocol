@@ -1,0 +1,59 @@
+package org.laxio.piston.protocol.v340.util;
+
+import org.laxio.piston.piston.exception.PistonRuntimeException;
+import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationException;
+
+import javax.crypto.SecretKey;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+
+/**
+ * Generates a broken Minecraft-style twos-complement signed
+ * hex digest. Tested and confirmed to match vanilla.
+ *
+ * See <a href="https://gist.github.com/unascribed/70e830d471d6a3272e3f">here</a>
+ */
+public class BrokenHash {
+
+    public static String hash(String str) {
+        try {
+            byte[] digest = digest(str, "SHA-1");
+            return new BigInteger(digest).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String hash(String serverName, PublicKey key, SecretKey secret) {
+        try {
+            byte[] digest = digest("SHA-1", serverName.getBytes("ISO_8859_1"), secret.getEncoded(), key.getEncoded());
+            return new BigInteger(digest).toString(16);
+        } catch (Exception ex) {
+            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
+        }
+    }
+
+    private static byte[] digest(String str, String algorithm) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(algorithm);
+        byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
+        return md.digest(strBytes);
+    }
+
+    private static byte[] digest(String algorithm, byte[] serverName, byte[] key, byte[] secret) throws NoSuchAlgorithmException {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(algorithm);
+            digest.digest(serverName);
+            digest.digest(key);
+            digest.digest(secret);
+
+            return digest.digest();
+        } catch (Exception ex) {
+            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
+        }
+    }
+
+}

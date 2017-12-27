@@ -1,6 +1,6 @@
 package org.laxio.piston.protocol.v340.packet.login.client;
 
-import org.laxio.piston.piston.player.Player;
+import org.laxio.piston.piston.entity.player.Player;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 

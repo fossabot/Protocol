@@ -3,13 +3,19 @@ package org.laxio.piston.protocol.v340.netty;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import org.laxio.piston.piston.PistonServer;
+import org.laxio.piston.piston.exception.PistonRuntimeException;
+import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationException;
 import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
+import org.laxio.piston.protocol.v340.netty.pipeline.PacketEncryption;
+import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketDecrypter;
+import org.laxio.piston.protocol.v340.netty.pipeline.outbound.PacketEncrypter;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
+import org.laxio.piston.protocol.v340.util.UserProfile;
 
 import java.net.SocketAddress;
 
@@ -28,6 +34,11 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
     private PistonServer server;
     private Protocol protocol;
+
+    private UserProfile profile;
+    private boolean encrypted = false;
+    private PacketEncryption encryption;
+    private PacketEncryption encryptionHold;
 
     NetworkClient(PistonServer server, Protocol protocol) {
         this.server = server;
@@ -71,6 +82,44 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
     public Protocol getProtocol() {
         return protocol;
+    }
+
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        if (this.profile != null) {
+            throw new PistonRuntimeException(new SessionAuthenticationException("Profile already set for this connection"));
+        }
+
+        this.profile = profile;
+    }
+
+    @Override
+    public boolean isEncrypted() {
+        return encrypted;
+    }
+
+    public PacketEncryption getEncryption() {
+        return encryption;
+    }
+
+    public void setEncryption(PacketEncryption encryption) {
+        this.encryption = encryption;
+
+        this.channel.pipeline().addBefore("splitter", "decrypt", new PacketDecrypter(encryption));
+        this.channel.pipeline().addBefore("prepender", "encrypt", new PacketEncrypter(encryption));
+
+        this.encrypted = true;
+    }
+
+    public PacketEncryption getEncryptionHold() {
+        return encryptionHold;
+    }
+
+    public void setEncryptionHold(PacketEncryption encryptionHold) {
+        this.encryptionHold = encryptionHold;
     }
 
     @Override

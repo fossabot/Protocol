@@ -57,7 +57,9 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
 
     @Override
     public byte[] readBytes(int length) throws IOException {
-        return buf.readBytes(length).array();
+        byte[] bytes = new byte[length];
+        buf.readBytes(bytes);
+        return bytes;
     }
 
     @Override

@@ -2,19 +2,30 @@ package org.laxio.piston.protocol.v340.netty.pipeline;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import org.laxio.piston.piston.exception.protocol.ProtocolEncryptionException;
 
 import javax.crypto.Cipher;
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.GeneralSecurityException;
 import java.security.Key;
+import java.util.Random;
 
 public class PacketEncryption {
 
+    private byte[] verifyToken = new byte[4];
     private byte[] before = new byte[0];
     private byte[] after = new byte[0];
 
     private Cipher cipher;
+
+    public PacketEncryption() {
+        new Random().nextBytes(verifyToken);
+    }
+
+    public byte[] getVerifyToken() {
+        return verifyToken;
+    }
 
     public Cipher generate(int opmode, Key key) {
         try {
@@ -22,7 +33,7 @@ public class PacketEncryption {
             cipher.init(opmode, key, new IvParameterSpec(key.getEncoded()));
             return cipher;
         } catch (GeneralSecurityException generalsecurityexception) {
-            throw new RuntimeException(generalsecurityexception);
+            throw new ProtocolEncryptionException(generalsecurityexception);
         }
     }
 
