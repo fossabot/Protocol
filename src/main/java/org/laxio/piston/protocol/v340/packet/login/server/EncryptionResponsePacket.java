@@ -6,7 +6,7 @@ import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class EncyrptionResponsePacket extends ProtocolPacket {
+public class EncryptionResponsePacket extends ProtocolPacket {
 
     private byte[] sharedSecret;
     private byte[] verifyToken;
@@ -27,7 +27,7 @@ public class EncyrptionResponsePacket extends ProtocolPacket {
 
     @Override
     public String toString() {
-        return "EncyrptionResponsePacket{" +
+        return "EncryptionResponsePacket{" +
                 "sharedSecret=" + Arrays.toString(sharedSecret) +
                 ", verifyToken=" + Arrays.toString(verifyToken) +
                 '}';

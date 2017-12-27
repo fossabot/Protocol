@@ -13,7 +13,7 @@ import org.laxio.piston.protocol.v340.packet.login.client.DisconnectPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.EncryptionRequestPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.LoginSuccessPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.SetCompressionPacket;
-import org.laxio.piston.protocol.v340.packet.login.server.EncyrptionResponsePacket;
+import org.laxio.piston.protocol.v340.packet.login.server.EncryptionResponsePacket;
 import org.laxio.piston.protocol.v340.packet.login.server.LoginStartPacket;
 import org.laxio.piston.protocol.v340.packet.play.client.SpawnExperienceOrbPacket;
 import org.laxio.piston.protocol.v340.packet.play.client.SpawnGlobalEntityPacket;
@@ -94,7 +94,7 @@ public class StickyProtocolV340 implements Protocol {
 
             // LOGIN
             this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, LoginStartPacket.class);
-            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, EncyrptionResponsePacket.class);
+            this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, EncryptionResponsePacket.class);
             this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, LoginSuccessPacket.class);
             this.packets.add(ProtocolState.LOGIN, PacketDirection.SERVERBOUND, SetCompressionPacket.class);
 
