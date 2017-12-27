@@ -6,6 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.laxio.piston.protocol.v340.stream.PistonOutputStream;
 
+import java.util.logging.Logger;
+
 public class PacketPrepender extends MessageToByteEncoder<ByteBuf> {
 
     /**
@@ -24,6 +26,7 @@ public class PacketPrepender extends MessageToByteEncoder<ByteBuf> {
         if (length > 3) {
             throw new UnsupportedOperationException("Unable to fit " + bytes + " into 3 bytes");
         } else {
+            Logger.getGlobal().info("Prepending " + bytes);
             PistonOutputStream stream = new PistonOutputStream(new ByteBufOutputStream(output));
             output.ensureWritable(length + bytes);
             stream.writeVarInt(bytes);

@@ -33,12 +33,22 @@ public class BrokenHash {
     public static String hash(String serverName, PublicKey key, SecretKey secret) {
         try {
             byte[] ascii = serverName.getBytes("ISO_8859_1");
-            Logger.getGlobal().info("Server Name: '" + serverName + "'");
-            Logger.getGlobal().info("Server Name: " + Arrays.toString(ascii));
-
             test("ascii", "secret", "public");
             byte[] digest = digest("SHA-1", ascii, secret.getEncoded(), key.getEncoded());
             return new BigInteger(digest).toString(16);
+        } catch (Exception ex) {
+            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
+        }
+    }
+
+    private static byte[] digest(String algorithm, byte[] serverName, byte[] secretKey, byte[] publicKey) throws NoSuchAlgorithmException {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(algorithm);
+            digest.update(serverName);
+            digest.update(secretKey);
+            digest.update(publicKey);
+
+            return digest.digest();
         } catch (Exception ex) {
             throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
         }
@@ -60,19 +70,6 @@ public class BrokenHash {
         }
 
         System.out.println();
-    }
-
-    private static byte[] digest(String algorithm, byte[] serverName, byte[] secretKey, byte[] publicKey) throws NoSuchAlgorithmException {
-        try {
-            MessageDigest digest = MessageDigest.getInstance(algorithm);
-            digest.digest(serverName);
-            digest.digest(secretKey);
-            digest.digest(publicKey);
-
-            return digest.digest();
-        } catch (Exception ex) {
-            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
-        }
     }
 
 }

@@ -7,6 +7,7 @@ import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationExce
 import org.laxio.piston.piston.session.SessionResponse;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class UserProfile implements Profile {
 
@@ -44,7 +45,8 @@ public class UserProfile implements Profile {
             SessionResponse response = service.hasJoined(this, hash);
             setUniqueId(response.getUuid());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.getGlobal().info(ex.getMessage());
+            // ex.printStackTrace();
         }
     }
 

@@ -43,8 +43,8 @@ public class EncryptionResponsePacket extends ProtocolPacket {
                 '}';
     }
 
-    public SecretKey construct(PrivateKey key) {
-        return new SecretKeySpec(decipher(key, verifyToken), "AES");
+    private SecretKey construct(PrivateKey key) {
+        return new SecretKeySpec(decipher(key, sharedSecret), "AES");
     }
 
     public byte[] decipher(Key key, byte[] out) {
