@@ -32,7 +32,7 @@ public class EncryptionResponsePacket extends ProtocolPacket {
     }
 
     public SecretKey getSecretKey(PrivateKey key) {
-        return construct(key, sharedSecret);
+        return construct(key);
     }
 
     @Override
@@ -43,15 +43,15 @@ public class EncryptionResponsePacket extends ProtocolPacket {
                 '}';
     }
 
-    private static SecretKey construct(PrivateKey key, byte[] out) {
-        return new SecretKeySpec(encrypt(key, out), "AES");
+    public SecretKey construct(PrivateKey key) {
+        return new SecretKeySpec(decipher(key, verifyToken), "AES");
     }
 
-    private static byte[] encrypt(Key key, byte[] out) {
-        return encrypt(2, key, out);
+    public byte[] decipher(Key key, byte[] out) {
+        return decipher(2, key, out);
     }
 
-    private static byte[] encrypt(int opmode, Key key, byte[] out) {
+    private byte[] decipher(int opmode, Key key, byte[] out) {
         try {
             return cipher(opmode, key.getAlgorithm(), key).doFinal(out);
         } catch (IllegalBlockSizeException | BadPaddingException ex) {
@@ -61,7 +61,7 @@ public class EncryptionResponsePacket extends ProtocolPacket {
         return null;
     }
 
-    private static Cipher cipher(int opmode, String algorithm, Key key) {
+    private Cipher cipher(int opmode, String algorithm, Key key) {
         try {
             Cipher var3 = Cipher.getInstance(algorithm);
             var3.init(opmode, key);

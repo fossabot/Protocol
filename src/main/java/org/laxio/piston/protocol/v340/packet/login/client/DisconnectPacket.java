@@ -18,6 +18,11 @@ public class DisconnectPacket extends ProtocolPacket {
         this.chat = chat;
     }
 
+    public DisconnectPacket(String message) {
+        this.chat = new JSONObject();
+        this.chat.put("text", message);
+    }
+
     public JSONObject getChat() {
         return chat;
     }

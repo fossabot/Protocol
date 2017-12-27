@@ -24,6 +24,8 @@ public class MojangSessionService implements MinecraftSessionService {
     public SessionResponse hasJoined(Profile profile, String serverId) throws SessionAuthenticationException {
         try {
             URL request = build(profile, serverId);
+            Logger.getGlobal().info(request.toString());
+
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
             con.setRequestMethod("GET");
 

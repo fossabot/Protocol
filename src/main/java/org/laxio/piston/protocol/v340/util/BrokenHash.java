@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 /**
  * Generates a broken Minecraft-style twos-complement signed
@@ -30,7 +32,12 @@ public class BrokenHash {
 
     public static String hash(String serverName, PublicKey key, SecretKey secret) {
         try {
-            byte[] digest = digest("SHA-1", serverName.getBytes("ISO_8859_1"), secret.getEncoded(), key.getEncoded());
+            byte[] ascii = serverName.getBytes("ISO_8859_1");
+            Logger.getGlobal().info("Server Name: '" + serverName + "'");
+            Logger.getGlobal().info("Server Name: " + Arrays.toString(ascii));
+
+            test("ascii", "secret", "public");
+            byte[] digest = digest("SHA-1", ascii, secret.getEncoded(), key.getEncoded());
             return new BigInteger(digest).toString(16);
         } catch (Exception ex) {
             throw new PistonRuntimeException(new SessionAuthenticationException("Unable to digest", ex));
@@ -43,12 +50,24 @@ public class BrokenHash {
         return md.digest(strBytes);
     }
 
-    private static byte[] digest(String algorithm, byte[] serverName, byte[] key, byte[] secret) throws NoSuchAlgorithmException {
+    private static void test(String... digest) {
+        String[] var3 = digest;
+        int var4 = digest.length;
+
+        for(int var5 = 0; var5 < var4; ++var5) {
+            String var6 = var3[var5];
+            System.out.print(var6 + ".");
+        }
+
+        System.out.println();
+    }
+
+    private static byte[] digest(String algorithm, byte[] serverName, byte[] secretKey, byte[] publicKey) throws NoSuchAlgorithmException {
         try {
             MessageDigest digest = MessageDigest.getInstance(algorithm);
             digest.digest(serverName);
-            digest.digest(key);
-            digest.digest(secret);
+            digest.digest(secretKey);
+            digest.digest(publicKey);
 
             return digest.digest();
         } catch (Exception ex) {
