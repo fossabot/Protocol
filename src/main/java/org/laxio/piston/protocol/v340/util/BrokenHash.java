@@ -30,7 +30,6 @@ public class BrokenHash {
     public static String hash(String serverName, PublicKey key, SecretKey secret) {
         try {
             byte[] ascii = serverName.getBytes("ISO_8859_1");
-            test("ascii", "secret", "public");
             byte[] digest = digest("SHA-1", ascii, secret.getEncoded(), key.getEncoded());
             return new BigInteger(digest).toString(16);
         } catch (Exception ex) {
@@ -38,7 +37,7 @@ public class BrokenHash {
         }
     }
 
-    private static byte[] digest(String algorithm, byte[] serverName, byte[] secretKey, byte[] publicKey) throws NoSuchAlgorithmException {
+    private static byte[] digest(String algorithm, byte[] serverName, byte[] secretKey, byte[] publicKey) {
         try {
             MessageDigest digest = MessageDigest.getInstance(algorithm);
             digest.update(serverName);
@@ -55,18 +54,6 @@ public class BrokenHash {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
         return md.digest(strBytes);
-    }
-
-    private static void test(String... digest) {
-        String[] var3 = digest;
-        int var4 = digest.length;
-
-        for (int var5 = 0; var5 < var4; ++var5) {
-            String var6 = var3[var5];
-            System.out.print(var6 + ".");
-        }
-
-        System.out.println();
     }
 
 }

@@ -14,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class MojangSessionService implements MinecraftSessionService {
 
@@ -45,8 +44,6 @@ public class MojangSessionService implements MinecraftSessionService {
     public SessionResponse hasJoined(Profile profile, String serverId, String ip) throws SessionAuthenticationException {
         try {
             URL request = build(profile, serverId, ip);
-            Logger.getGlobal().info(request.toString());
-
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
             con.setRequestMethod("GET");
 
@@ -66,8 +63,6 @@ public class MojangSessionService implements MinecraftSessionService {
 
 
             JSONObject json = new JSONObject(content);
-            Logger.getGlobal().info(json.toString(2));
-
             String uuid = json.getString("id").replaceAll(
                     "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
                     "$1-$2-$3-$4-$5");

@@ -18,7 +18,6 @@ import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 import org.laxio.piston.protocol.v340.util.UserProfile;
 
 import java.net.SocketAddress;
-import java.util.logging.Logger;
 
 /**
  * Channel connection between the server and client, manages Packet conversion to/from bytes
@@ -108,7 +107,6 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
     public void setEncryption(PacketEncryption encryption) {
         this.encryption = encryption;
 
-        Logger.getGlobal().info("Set encryption");
         this.channel.pipeline().addBefore("splitter", "decrypt", new PacketDecrypter(encryption));
         this.channel.pipeline().addBefore("prepender", "encrypt", new PacketEncrypter(encryption));
 

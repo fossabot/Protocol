@@ -6,7 +6,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.laxio.piston.protocol.v340.netty.NetworkClient;
 import org.laxio.piston.protocol.v340.stream.PistonByteBuf;
 
-import java.util.logging.Logger;
 import java.util.zip.Deflater;
 
 /**
@@ -33,7 +32,6 @@ public class PacketDeflater extends MessageToByteEncoder<ByteBuf> {
     protected void encode(ChannelHandlerContext channelHandlerContext, ByteBuf input, ByteBuf output) throws Exception {
         int length = input.readableBytes();
         if (this.client.getCompression().isEnabled() && this.client.getCompression().getThreshold() >= length) {
-            Logger.getGlobal().info("Compressing packet: " + input.readableBytes() + " bytes");
             PistonByteBuf out = new PistonByteBuf(output);
             out.writeVarInt(input.readableBytes());
 
