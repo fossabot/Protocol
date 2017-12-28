@@ -6,8 +6,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.laxio.piston.protocol.v340.stream.PistonOutputStream;
 
-import java.util.logging.Logger;
-
 public class PacketPrepender extends MessageToByteEncoder<ByteBuf> {
 
     /**
