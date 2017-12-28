@@ -26,6 +26,7 @@ public class PacketDeflater extends MessageToByteEncoder<ByteBuf> {
      * @param channelHandlerContext The channel which this packet is being sent through
      * @param input                 The input buffer
      * @param output                The output buffer (may be compressed)
+     *
      * @throws Exception
      */
     @Override

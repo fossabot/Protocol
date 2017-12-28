@@ -51,7 +51,9 @@ public class StickyProtocolV340 implements Protocol {
      * @param state     The state that the protocol is in
      * @param direction The direction which the packet is travelling
      * @param id        The id number of the packet
+     *
      * @return The constructed Packet
+     *
      * @throws PacketNotFoundException    If no Packet is found matching the criteria
      * @throws UnsupportedPacketException If the Packet cannot be constructed via reflection
      */

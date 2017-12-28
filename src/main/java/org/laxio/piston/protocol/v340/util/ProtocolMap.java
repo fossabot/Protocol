@@ -47,6 +47,7 @@ public class ProtocolMap {
      * @param state     The state that the protocol is in
      * @param direction The direction of the packet
      * @param id        The id number of the packet
+     *
      * @return The class of the packet
      */
     public Class<? extends Packet> getPacket(ProtocolState state, PacketDirection direction, int id) {
@@ -59,7 +60,9 @@ public class ProtocolMap {
      * @param state     The state that the protocol is in
      * @param direction The direction of the packet
      * @param id        The id number of the packet
+     *
      * @return A constructed Packet based on the supplied arguments
+     *
      * @throws PacketNotFoundException    If no Packet is found matching the criteria
      * @throws UnsupportedPacketException If the Packet cannot be constructed via reflection
      */
@@ -84,6 +87,7 @@ public class ProtocolMap {
      * @param state     The protocol state which the packet belongs to
      * @param direction The direction of travel which the packet will take
      * @param cls       The class of the packet to add
+     *
      * @throws UnsupportedPacketException If the Packet cannot be constructed via reflection
      */
     public void add(ProtocolState state, PacketDirection direction, Class<? extends Packet> cls) throws UnsupportedPacketException {
@@ -101,6 +105,7 @@ public class ProtocolMap {
      * @param direction The direction of travel which the packet will take
      * @param id        The id number of the packet
      * @param cls       The class of the packet to add
+     *
      * @throws UnsupportedPacketException If the Packet cannot be constructed via reflection
      */
     public void add(ProtocolState state, PacketDirection direction, int id, Class<? extends Packet> cls) throws UnsupportedPacketException {
