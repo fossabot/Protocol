@@ -27,7 +27,6 @@ public class PacketPrepender extends MessageToByteEncoder<ByteBuf> {
         if (length > 3) {
             throw new UnsupportedOperationException("Unable to fit " + bytes + " into 3 bytes");
         } else {
-            Logger.getGlobal().info("Prepending " + bytes);
             PistonOutputStream stream = new PistonOutputStream(new ByteBufOutputStream(output));
             output.ensureWritable(length + bytes);
             stream.writeVarInt(bytes);
