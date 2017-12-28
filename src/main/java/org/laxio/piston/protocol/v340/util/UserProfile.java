@@ -1,9 +1,9 @@
 package org.laxio.piston.protocol.v340.util;
 
-import org.laxio.piston.piston.session.MinecraftSessionService;
-import org.laxio.piston.piston.session.Profile;
 import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationException;
+import org.laxio.piston.piston.session.MinecraftSessionService;
+import org.laxio.piston.piston.session.Profile;
 import org.laxio.piston.piston.session.SessionResponse;
 
 import java.util.UUID;
@@ -12,9 +12,8 @@ import java.util.logging.Logger;
 public class UserProfile implements Profile {
 
     private final MinecraftSessionService service;
-
-    private UUID uuid = null;
     private final String name;
+    private UUID uuid = null;
 
     public UserProfile(MinecraftSessionService service, String name) {
         this.service = service;

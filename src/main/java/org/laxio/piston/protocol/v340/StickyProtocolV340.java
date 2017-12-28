@@ -33,6 +33,11 @@ public class StickyProtocolV340 implements Protocol {
     private static final String MC_PROTOCOL_VERSION; // MC Version (Specification)
     private static final String STICKY_PROTOCOL_VERSION; // Protocol Version (Implementation)
 
+    static {
+        MC_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getSpecificationVersion();
+        STICKY_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getImplementationVersion();
+    }
+
     private final ProtocolMap packets;
 
     public StickyProtocolV340() {
@@ -103,11 +108,6 @@ public class StickyProtocolV340 implements Protocol {
         } catch (UnsupportedPacketException ex) {
             ex.printStackTrace();
         }
-    }
-
-    static {
-        MC_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getSpecificationVersion();
-        STICKY_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getImplementationVersion();
     }
 
 }

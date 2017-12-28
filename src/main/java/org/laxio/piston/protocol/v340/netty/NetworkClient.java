@@ -25,12 +25,11 @@ import java.util.logging.Logger;
  */
 public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implements Connection {
 
+    private final CompressionState compression;
     private boolean preparing = true;
     private ChannelHandlerContext context;
     private Channel channel;
     private SocketAddress address;
-
-    private final CompressionState compression;
     private ProtocolState state = ProtocolState.HANDSHAKE;
 
     private PistonServer server;

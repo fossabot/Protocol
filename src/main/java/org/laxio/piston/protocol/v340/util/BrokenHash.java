@@ -4,19 +4,16 @@ import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationException;
 
 import javax.crypto.SecretKey;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.util.Arrays;
-import java.util.logging.Logger;
 
 /**
  * Generates a broken Minecraft-style twos-complement signed
  * hex digest. Tested and confirmed to match vanilla.
- *
+ * <p>
  * See <a href="https://gist.github.com/unascribed/70e830d471d6a3272e3f">here</a>
  */
 public class BrokenHash {
@@ -64,7 +61,7 @@ public class BrokenHash {
         String[] var3 = digest;
         int var4 = digest.length;
 
-        for(int var5 = 0; var5 < var4; ++var5) {
+        for (int var5 = 0; var5 < var4; ++var5) {
             String var6 = var3[var5];
             System.out.print(var6 + ".");
         }

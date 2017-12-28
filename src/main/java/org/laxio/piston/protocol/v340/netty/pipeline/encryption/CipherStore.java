@@ -10,12 +10,10 @@ import java.security.Key;
 
 public abstract class CipherStore {
 
+    protected final Cipher cipher;
     private final PacketEncryption parent;
-
     protected byte[] before = new byte[0];
     protected byte[] after = new byte[0];
-
-    protected final Cipher cipher;
 
     CipherStore(PacketEncryption parent, Key key) {
         this.parent = parent;

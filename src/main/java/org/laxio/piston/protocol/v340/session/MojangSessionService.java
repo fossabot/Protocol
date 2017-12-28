@@ -2,10 +2,10 @@ package org.laxio.piston.protocol.v340.session;
 
 import org.json.JSONObject;
 import org.laxio.piston.piston.PistonServer;
-import org.laxio.piston.piston.session.Profile;
 import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.exception.protocol.auth.SessionAuthenticationException;
 import org.laxio.piston.piston.session.MinecraftSessionService;
+import org.laxio.piston.piston.session.Profile;
 import org.laxio.piston.piston.session.SessionResponse;
 
 import java.io.BufferedReader;
@@ -21,6 +21,14 @@ public class MojangSessionService implements MinecraftSessionService {
     private static final String BASE_URL = "https://sessionserver.mojang.com/session/minecraft/";
 
     private static final URL CHECK_URL;
+
+    static {
+        try {
+            CHECK_URL = new URL(BASE_URL + "hasJoined");
+        } catch (Exception ex) {
+            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to build CHECK_URL", ex));
+        }
+    }
 
     private final PistonServer server;
 
@@ -74,14 +82,6 @@ public class MojangSessionService implements MinecraftSessionService {
         return new URL(CHECK_URL.toString()
                 + "?username=" + profile.getName()
                 + "&serverId=" + serverId);
-    }
-
-    static {
-        try {
-            CHECK_URL = new URL(BASE_URL + "hasJoined");
-        } catch (Exception ex) {
-            throw new PistonRuntimeException(new SessionAuthenticationException("Unable to build CHECK_URL", ex));
-        }
     }
 
 }

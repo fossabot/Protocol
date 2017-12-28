@@ -7,7 +7,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.laxio.piston.piston.PistonServer;
 
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 /**
  * Represents the server socket connected to by the clients
