@@ -1,21 +1,21 @@
 package org.laxio.piston.protocol.v340.packet.play.client;
 
 import org.laxio.piston.piston.entity.Entity;
-import org.laxio.piston.piston.entity.type.LivingEntity;
+import org.laxio.piston.piston.entity.type.PaintingEntity;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 
-public class SpawnMobPacket extends ProtocolPacket {
+public class SpawnPaintingPacket extends ProtocolPacket {
 
-    private LivingEntity entity;
+    private PaintingEntity entity;
 
-    public SpawnMobPacket() {
+    public SpawnPaintingPacket() {
         // required empty packet
     }
 
-    public SpawnMobPacket(LivingEntity entity) {
+    public SpawnPaintingPacket(PaintingEntity entity) {
         this.entity = entity;
     }
 
@@ -27,16 +27,14 @@ public class SpawnMobPacket extends ProtocolPacket {
     public void onWrite(PistonOutput output) throws IOException {
         output.writeVarInt(entity.getEntityId());
         output.writeUUID(entity.getUUID());
-        output.writeVarInt(entity.getType().getType());
-        output.writeLocation(entity.getLocation(), true);
-        output.writeInt(entity.getData());
-        output.writeVelocity(entity.getVelocity());
-        output.writeMetadata(entity.getMetadata());
+        output.writeString(entity.getTitle());
+        output.writePosition(entity.getLocation());
+        output.writeByte(entity.getDirection().getPaintingId());
     }
 
     @Override
     public String toString() {
-        return "SpawnMobPacket{" +
+        return "SpawnPaintingPacket{" +
                 "entity=" + entity +
                 '}';
     }

@@ -15,9 +15,7 @@ import org.laxio.piston.protocol.v340.packet.login.client.LoginSuccessPacket;
 import org.laxio.piston.protocol.v340.packet.login.client.SetCompressionPacket;
 import org.laxio.piston.protocol.v340.packet.login.server.EncryptionResponsePacket;
 import org.laxio.piston.protocol.v340.packet.login.server.LoginStartPacket;
-import org.laxio.piston.protocol.v340.packet.play.client.SpawnExperienceOrbPacket;
-import org.laxio.piston.protocol.v340.packet.play.client.SpawnGlobalEntityPacket;
-import org.laxio.piston.protocol.v340.packet.play.client.SpawnObjectPacket;
+import org.laxio.piston.protocol.v340.packet.play.client.*;
 import org.laxio.piston.protocol.v340.packet.play.server.TeleportConfirmPacket;
 import org.laxio.piston.protocol.v340.packet.status.client.PongPacket;
 import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
@@ -91,6 +89,12 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnObjectPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnExperienceOrbPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnGlobalEntityPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnMobPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnPaintingPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SpawnPlayerPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, ServerAnimationPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, StatisticsPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, BlockBreakAnimationPacket.class);
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
