@@ -95,6 +95,9 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, ServerAnimationPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, StatisticsPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, BlockBreakAnimationPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, UpdateBlockEntityPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, BlockActionPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, BlockChangePacket.class);
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);

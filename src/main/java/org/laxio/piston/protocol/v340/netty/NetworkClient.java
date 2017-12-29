@@ -17,7 +17,7 @@ import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.stream.compression.CompressionState;
 import org.laxio.piston.protocol.v340.util.UserProfile;
 
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 
 /**
  * Channel connection between the server and client, manages Packet conversion to/from bytes
@@ -28,7 +28,7 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
     private boolean preparing = true;
     private ChannelHandlerContext context;
     private Channel channel;
-    private SocketAddress address;
+    private InetSocketAddress address;
     private ProtocolState state = ProtocolState.HANDSHAKE;
 
     private PistonServer server;
@@ -57,7 +57,7 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         return channel;
     }
 
-    public SocketAddress getAddress() {
+    public InetSocketAddress getAddress() {
         return address;
     }
 
@@ -127,7 +127,7 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
         this.context = ctx;
         this.channel = ctx.channel();
-        this.address = this.channel.remoteAddress();
+        this.address = (InetSocketAddress) this.channel.remoteAddress();
         this.preparing = false;
     }
 
