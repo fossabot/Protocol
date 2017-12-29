@@ -20,6 +20,10 @@ public class DisconnectPacket extends ProtocolPacket {
         this.message = MessageBuilder.builder().message(message).build();
     }
 
+    public DisconnectPacket(MessageComponent message) {
+        this.message = message;
+    }
+
     public MessageComponent getMessage() {
         return message;
     }
