@@ -191,4 +191,34 @@ public class StreamTools {
         return output;
     }
 
+    public static Location readPosition(PistonInput input) throws IOException {
+        long val = input.readLong();
+        int x = (int) val >> 38;
+        int y = (int) (val >> 26) & 0xFFF;
+        int z = (int) val << 38 >> 38;
+
+        if (x >= (2 ^ 25)) {
+            x -= 2 ^ 26;
+        }
+
+        if (y >= (2 ^ 11)) {
+            y -= 2 ^ 12;
+        }
+
+        if (z >= (2 ^ 25)) {
+            z -= 2 ^ 26;
+        }
+
+        return new Location(x, y, z);
+    }
+
+    public static PistonOutput writePosition(PistonOutput output, Location value) throws IOException {
+        int x = value.getBlockX();
+        int y = value.getBlockY();
+        int z = value.getBlockZ();
+        long data = ((x & 0x3FFFFFF) << 38) | ((y & 0xFFF) << 26) | (z & 0x3FFFFFF);
+        output.writeLong(data);
+        return output;
+    }
+
 }

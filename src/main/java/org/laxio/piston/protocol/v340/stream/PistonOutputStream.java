@@ -84,4 +84,10 @@ public class PistonOutputStream extends DataOutputStream implements PistonOutput
         return this;
     }
 
+    @Override
+    public PistonOutput writePosition(Location data) throws IOException {
+        StreamTools.writePosition(this, data);
+        return this;
+    }
+
 }

@@ -128,6 +128,16 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
+    public boolean readBoolean() {
+        return buf.readBoolean();
+    }
+
+    @Override
+    public void writeBoolean(boolean data) {
+        buf.writeBoolean(data);
+    }
+
+    @Override
     public UUID readUUID() throws IOException {
         return StreamTools.readUUID(this);
     }
@@ -231,6 +241,16 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     @Override
     public PistonOutput writeVelocity(Velocity data) throws IOException {
         return StreamTools.writeVelocity(this, data);
+    }
+
+    @Override
+    public Location readPosition() throws IOException {
+        return StreamTools.readPosition(this);
+    }
+
+    @Override
+    public PistonOutput writePosition(Location data) throws IOException {
+        return StreamTools.writePosition(this, data);
     }
 
 }

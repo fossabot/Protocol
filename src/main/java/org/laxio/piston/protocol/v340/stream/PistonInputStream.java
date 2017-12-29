@@ -86,11 +86,12 @@ public class PistonInputStream extends DataInputStream implements PistonInput {
 
     @Override
     public Velocity readVelocity() throws IOException {
-        short x = readShort();
-        short y = readShort();
-        short z = readShort();
+        return StreamTools.readVelocity(this);
+    }
 
-        return new Velocity(x, y, z);
+    @Override
+    public Location readPosition() throws IOException {
+        return StreamTools.readPosition(this);
     }
 
 }
