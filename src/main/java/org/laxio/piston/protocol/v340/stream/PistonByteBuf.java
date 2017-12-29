@@ -31,7 +31,7 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         return readByte();
     }
 
@@ -56,7 +56,7 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     }
 
     @Override
-    public byte[] readBytes(int length) throws IOException {
+    public byte[] readBytes(int length) {
         byte[] bytes = new byte[length];
         buf.readBytes(bytes);
         return bytes;
@@ -80,6 +80,11 @@ public class PistonByteBuf implements PistonInput, PistonOutput {
     @Override
     public int readUnsignedShort() {
         return buf.readUnsignedShort();
+    }
+
+    @Override
+    public int readUnsignedByte() {
+        return buf.readUnsignedByte();
     }
 
     @Override
