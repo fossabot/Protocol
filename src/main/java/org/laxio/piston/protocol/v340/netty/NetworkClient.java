@@ -33,6 +33,7 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
     private PistonServer server;
     private Protocol protocol;
+    private int protocolVersion;
 
     private UserProfile profile;
     private boolean encrypted = false;
@@ -57,8 +58,14 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         return channel;
     }
 
+    @Override
     public InetSocketAddress getAddress() {
         return address;
+    }
+
+    @Override
+    public int getProtocolVersion() {
+        return protocolVersion;
     }
 
     public CompressionState getCompression() {
@@ -136,9 +143,8 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         if (msg instanceof HandshakePacket) {
             HandshakePacket handshake = (HandshakePacket) msg;
             state = handshake.getNextState();
-
+            protocolVersion = handshake.getProtocolVersion();
             // TODO: set protocol based on handshake#getProtocolVersion()
-            return;
         }
 
         server.getManager().call(msg);

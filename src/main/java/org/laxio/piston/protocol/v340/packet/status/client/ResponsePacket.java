@@ -2,14 +2,27 @@ package org.laxio.piston.protocol.v340.packet.status.client;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.laxio.piston.piston.chat.ChatColor;
-import org.laxio.piston.piston.chat.MessageBuilder;
+import org.laxio.piston.piston.chat.MessageComponent;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 
 public class ResponsePacket extends ProtocolPacket {
+
+    private MessageComponent motd;
+
+    public ResponsePacket() {
+        // required empty
+    }
+
+    public ResponsePacket(MessageComponent motd) {
+        this.motd = motd;
+    }
+
+    public MessageComponent getMotd() {
+        return motd;
+    }
 
     @Override
     public void onWrite(PistonOutput output) throws IOException {
@@ -33,10 +46,7 @@ public class ResponsePacket extends ProtocolPacket {
         players.put("sample", sample);
         json.put("players", players);
 
-        MessageBuilder builder = MessageBuilder.builder();
-        builder.message(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "L A X I O" + ChatColor.GRAY + " - TEST SERVER\n" + ChatColor.YELLOW + "New line support?");
-
-        JSONObject description = builder.build().toJSON();
+        JSONObject description = motd.toJSON();
         json.put("description", description);
 
         output.writeString(json.toString());
