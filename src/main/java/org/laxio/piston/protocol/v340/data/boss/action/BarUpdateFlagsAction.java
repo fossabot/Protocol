@@ -6,24 +6,19 @@ import org.laxio.piston.protocol.v340.data.boss.BarAction;
 
 import java.io.IOException;
 
-public class BarAddAction extends BarAction {
+public class BarUpdateFlagsAction extends BarAction {
 
-    public BarAddAction(BossBar bar) {
+    public BarUpdateFlagsAction(BossBar bar) {
         super(bar);
     }
 
     @Override
     public int getId() {
-        return 0;
+        return 5;
     }
 
     @Override
     public void write(PistonOutput output) throws IOException {
-        output.writeString(bar.getTitle().toJSON().toString());
-        output.writeFloat(bar.getHealth());
-        output.writeVarInt(bar.getColor().getId());
-        output.writeVarInt(bar.getDivision().getId());
-
         int flag = 0;
         if (bar.isDarken())
             flag = flag << 0x1;
@@ -36,7 +31,7 @@ public class BarAddAction extends BarAction {
 
     @Override
     public String toString() {
-        return "BarAddAction{" +
+        return "BarUpdateFlagsAction{" +
                 "bar=" + bar +
                 '}';
     }
