@@ -31,6 +31,10 @@ public class ProtocolMap {
         init();
     }
 
+    public Map<ProtocolState, Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>>> getPackets() {
+        return packets;
+    }
+
     public int getId(Packet packet) throws PacketNotFoundException {
         Class<? extends Packet> cls = packet.getClass();
         Integer result = packetMap.get(cls);

@@ -6,7 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import org.laxio.piston.piston.PistonServer;
-import org.laxio.piston.protocol.v340.StickyProtocolV340;
+import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketDecoder;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketInflater;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketSplitter;
@@ -19,11 +19,11 @@ import org.laxio.piston.protocol.v340.netty.pipeline.outbound.PacketToClientTran
 public class ProtocolChannelHandler extends ChannelInitializer<SocketChannel> {
 
     private final PistonServer server;
-    private final StickyProtocolV340 nativeProtocol;
+    private final Protocol nativeProtocol;
 
     ProtocolChannelHandler(PistonServer server) {
         this.server = server;
-        this.nativeProtocol = new StickyProtocolV340();
+        this.nativeProtocol = server.getProtocol();
     }
 
     @Override

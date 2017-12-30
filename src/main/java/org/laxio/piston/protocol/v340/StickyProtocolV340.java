@@ -2,10 +2,12 @@ package org.laxio.piston.protocol.v340;
 
 import org.laxio.piston.piston.exception.protocol.packet.PacketNotFoundException;
 import org.laxio.piston.piston.exception.protocol.packet.UnsupportedPacketException;
+import org.laxio.piston.piston.logging.Logger;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
+import org.laxio.piston.piston.util.map.ReverseMap;
 import org.laxio.piston.protocol.v340.packet.handshake.client.LegacyServerListResponsePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 import org.laxio.piston.protocol.v340.packet.handshake.server.LegacyServerListPingPacket;
@@ -22,6 +24,8 @@ import org.laxio.piston.protocol.v340.packet.status.client.ResponsePacket;
 import org.laxio.piston.protocol.v340.packet.status.server.PingPacket;
 import org.laxio.piston.protocol.v340.packet.status.server.RequestPacket;
 import org.laxio.piston.protocol.v340.util.ProtocolMap;
+
+import java.util.Map;
 
 /**
  * Protocol implementation for MC Java Edition protocol 340
@@ -120,6 +124,17 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, EncryptionRequestPacket.class);
         } catch (UnsupportedPacketException ex) {
             ex.printStackTrace();
+            System.exit(1);
+        }
+
+        Map<ProtocolState, Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>>> packets = this.packets.getPackets();
+        for (ProtocolState state : ProtocolState.values()) {
+            Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>> map1 = packets.get(state);
+            int server = map1.get(PacketDirection.SERVERBOUND).size();
+            int client = map1.get(PacketDirection.CLIENTBOUND).size();
+            int total = server + client;
+
+            Logger.getGlobal().config("Loaded {} packets for {}. SERVER[{}] CLIENT[{}]", total, state.name(), server, client);
         }
     }
 
