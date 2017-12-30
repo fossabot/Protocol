@@ -1,51 +1,37 @@
 package org.laxio.piston.protocol.v340.packet.play.client;
 
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
-import org.laxio.piston.piston.world.Location;
+import org.laxio.piston.protocol.v340.data.BlockChange;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 
 public class BlockChangePacket extends ProtocolPacket {
 
-    private Location block;
-    private int type;
-    private int meta;
+    private BlockChange change;
 
     public BlockChangePacket() {
         // required empty packet
     }
 
-    public BlockChangePacket(Location block, int type, int meta) {
-        this.block = block;
-        this.type = type;
-        this.meta = meta;
+    public BlockChangePacket(BlockChange change) {
+        this.change = change;
     }
 
-    public Location getBlock() {
-        return block;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public int getMeta() {
-        return meta;
+    public BlockChange getChange() {
+        return change;
     }
 
     @Override
     public void onWrite(PistonOutput output) throws IOException {
-        output.writePosition(block);
-        output.writeVarInt(type << 4 | (meta & 15));
+        output.writePosition(change.getLocation());
+        output.writeVarInt(change.asVarInt());
     }
 
     @Override
     public String toString() {
         return "BlockChangePacket{" +
-                "block=" + block +
-                ", type=" + type +
-                ", meta=" + meta +
+                "change=" + change +
                 '}';
     }
 
