@@ -12,7 +12,7 @@ public class StatisticsPacket extends ProtocolPacket {
     private List<Statistic> statistics;
 
     public StatisticsPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public StatisticsPacket(List<Statistic> statistics) {

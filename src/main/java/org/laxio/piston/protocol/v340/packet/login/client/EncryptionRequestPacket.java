@@ -14,7 +14,7 @@ public class EncryptionRequestPacket extends ProtocolPacket {
     private byte[] verifyToken;
 
     public EncryptionRequestPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public EncryptionRequestPacket(String serverName, PublicKey key, byte[] verifyToken) {

@@ -12,7 +12,7 @@ public class DisconnectPacket extends ProtocolPacket {
     private MessageComponent message;
 
     public DisconnectPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     @Deprecated

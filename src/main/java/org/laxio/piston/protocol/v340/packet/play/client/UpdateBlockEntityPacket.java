@@ -13,7 +13,7 @@ public class UpdateBlockEntityPacket extends ProtocolPacket {
     // private NBTData data;
 
     public UpdateBlockEntityPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public UpdateBlockEntityPacket(Location block, BlockEntityAction action) {

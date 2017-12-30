@@ -13,7 +13,7 @@ public class ServerAnimationPacket extends ProtocolPacket {
     private Animation animation;
 
     public ServerAnimationPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public ServerAnimationPacket(Player player, Animation animation) {

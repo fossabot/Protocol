@@ -11,7 +11,7 @@ public class BlockChangePacket extends ProtocolPacket {
     private BlockChange change;
 
     public BlockChangePacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public BlockChangePacket(BlockChange change) {

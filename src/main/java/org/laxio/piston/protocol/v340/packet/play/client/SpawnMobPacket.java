@@ -12,7 +12,7 @@ public class SpawnMobPacket extends ProtocolPacket {
     private LivingEntity entity;
 
     public SpawnMobPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnMobPacket(LivingEntity entity) {

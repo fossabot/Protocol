@@ -12,7 +12,7 @@ public class SpawnExperienceOrbPacket extends ProtocolPacket {
     private ExperienceOrbEntity entity;
 
     public SpawnExperienceOrbPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnExperienceOrbPacket(ExperienceOrbEntity entity) {

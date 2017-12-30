@@ -16,7 +16,7 @@ public class MultiBlockChangePacket extends ProtocolPacket {
     private List<BlockChange> changes;
 
     public MultiBlockChangePacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public MultiBlockChangePacket(Chunk chunk, List<BlockChange> changes) {

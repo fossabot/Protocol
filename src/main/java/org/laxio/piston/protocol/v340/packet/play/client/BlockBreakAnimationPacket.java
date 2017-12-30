@@ -14,7 +14,7 @@ public class BlockBreakAnimationPacket extends ProtocolPacket {
     private byte stage;
 
     public BlockBreakAnimationPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public BlockBreakAnimationPacket(int entityId, Location block, byte stage) {

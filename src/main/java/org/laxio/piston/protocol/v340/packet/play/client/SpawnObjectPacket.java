@@ -12,7 +12,7 @@ public class SpawnObjectPacket extends ProtocolPacket {
     private ObjectEntity entity;
 
     public SpawnObjectPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnObjectPacket(ObjectEntity entity) {

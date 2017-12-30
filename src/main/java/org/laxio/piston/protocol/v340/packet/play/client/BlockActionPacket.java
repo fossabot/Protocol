@@ -14,7 +14,7 @@ public class BlockActionPacket extends ProtocolPacket {
     private int blockType;
 
     public BlockActionPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public BlockActionPacket(Location block, byte actionId, byte param, int blockType) {

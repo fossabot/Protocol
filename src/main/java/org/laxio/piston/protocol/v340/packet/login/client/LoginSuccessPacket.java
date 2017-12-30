@@ -11,7 +11,7 @@ public class LoginSuccessPacket extends ProtocolPacket {
     private Player player;
 
     public LoginSuccessPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public LoginSuccessPacket(Player player) {

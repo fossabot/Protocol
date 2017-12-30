@@ -10,7 +10,7 @@ public class SetCompressionPacket extends ProtocolPacket {
     private int threshold;
 
     public SetCompressionPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SetCompressionPacket(int threshold) {

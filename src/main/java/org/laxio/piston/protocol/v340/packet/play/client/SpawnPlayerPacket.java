@@ -11,7 +11,7 @@ public class SpawnPlayerPacket extends ProtocolPacket {
     private Player entity;
 
     public SpawnPlayerPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnPlayerPacket(Player entity) {

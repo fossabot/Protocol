@@ -11,7 +11,7 @@ public class SpawnGlobalEntityPacket extends ProtocolPacket {
     private GlobalEntity entity;
 
     public SpawnGlobalEntityPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnGlobalEntityPacket(GlobalEntity entity) {

@@ -12,7 +12,7 @@ public class SpawnPaintingPacket extends ProtocolPacket {
     private PaintingEntity entity;
 
     public SpawnPaintingPacket() {
-        // required empty packet
+        // required empty constructor
     }
 
     public SpawnPaintingPacket(PaintingEntity entity) {
