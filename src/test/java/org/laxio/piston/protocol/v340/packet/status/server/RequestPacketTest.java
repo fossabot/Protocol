@@ -8,6 +8,8 @@ import org.laxio.piston.protocol.v340.stream.PistonInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class RequestPacketTest {
 
     @Test
@@ -23,7 +25,7 @@ class RequestPacketTest {
         packet.setConnection(connection);
         packet.read(input);
 
-        assert (packet.isLocked());
+        assertTrue(packet.isLocked());
     }
 
 }

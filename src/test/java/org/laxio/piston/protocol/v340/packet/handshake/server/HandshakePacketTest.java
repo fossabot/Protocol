@@ -9,6 +9,8 @@ import org.laxio.piston.protocol.v340.stream.PistonInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class HandshakePacketTest {
 
     @Test
@@ -24,11 +26,11 @@ class HandshakePacketTest {
         packet.setConnection(connection);
         packet.read(input);
 
-        assert (packet.isLocked());
-        assert (packet.getAddress().equals("localhost"));
-        assert (packet.getPort() == 25565);
-        assert (packet.getNextState() == ProtocolState.STATUS);
-        assert (packet.getProtocolVersion() == 340);
+        assertTrue(packet.isLocked());
+        assertTrue(packet.getAddress().equals("localhost"));
+        assertTrue(packet.getPort() == 25565);
+        assertTrue(packet.getNextState() == ProtocolState.STATUS);
+        assertTrue(packet.getProtocolVersion() == 340);
     }
 
 }

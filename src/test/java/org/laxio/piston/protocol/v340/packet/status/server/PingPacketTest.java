@@ -8,6 +8,8 @@ import org.laxio.piston.protocol.v340.stream.PistonInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class PingPacketTest {
 
     @Test
@@ -23,8 +25,8 @@ class PingPacketTest {
         packet.setConnection(connection);
         packet.read(input);
 
-        assert (packet.getPayload() == 62910955);
-        assert (packet.isLocked());
+        assertTrue(packet.getPayload() == 62910955);
+        assertTrue(packet.isLocked());
     }
 
 }
