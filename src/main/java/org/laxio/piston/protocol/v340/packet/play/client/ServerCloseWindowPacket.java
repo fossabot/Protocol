@@ -13,6 +13,10 @@ public class ServerCloseWindowPacket extends ProtocolPacket {
         // required empty constructor
     }
 
+    public ServerCloseWindowPacket(byte windowId) {
+        this.windowId = windowId;
+    }
+
     public byte getWindowId() {
         return windowId;
     }

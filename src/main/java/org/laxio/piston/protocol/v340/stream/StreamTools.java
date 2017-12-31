@@ -101,23 +101,24 @@ public class StreamTools {
     }
 
     public static void writeVar(PistonOutput output, long data) throws IOException {
+        long val = data;
         do {
-            byte temp = (byte) (data & 0b01111111);
+            byte temp = (byte) (val & 0b01111111);
             // Note: >>> means that the sign bit is shifted with the rest of the number rather than being left alone
-            data >>>= 7;
-            if (data != 0) {
+            val >>>= 7;
+            if (val != 0) {
                 temp |= 0b10000000;
             }
 
             output.writeByte(temp);
-        } while (data != 0);
+        } while (val != 0);
     }
 
     public static Identifier readIdentifier(PistonInput input) throws IOException {
         String iden = input.readString();
 
         Matcher matcher = IDENTIFIER_PATTERN.matcher(iden);
-        while (matcher.matches()) {
+        if (matcher.matches()) {
             String namespace = matcher.group("namespace");
             String name = matcher.group("name");
 

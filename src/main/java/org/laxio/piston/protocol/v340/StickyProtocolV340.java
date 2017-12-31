@@ -1,5 +1,6 @@
 package org.laxio.piston.protocol.v340;
 
+import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.exception.protocol.packet.PacketNotFoundException;
 import org.laxio.piston.piston.exception.protocol.packet.UnsupportedPacketException;
 import org.laxio.piston.piston.logging.Logger;
@@ -43,7 +44,7 @@ public class StickyProtocolV340 implements Protocol {
     private final ProtocolMap packets;
 
     public StickyProtocolV340() {
-        this.packets = new ProtocolMap(this);
+        this.packets = new ProtocolMap();
         init();
     }
 
@@ -132,7 +133,7 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.LOGIN, PacketDirection.CLIENTBOUND, EncryptionRequestPacket.class);
         } catch (UnsupportedPacketException ex) {
             ex.printStackTrace();
-            System.exit(1);
+            throw new PistonRuntimeException(ex);
         }
 
         Map<ProtocolState, Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>>> packets = this.packets.getPackets();

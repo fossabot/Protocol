@@ -15,8 +15,6 @@ public class NetworkServer extends Thread {
 
     private final PistonServer server;
     private final InetSocketAddress address;
-    private EventLoopGroup boss;
-    private EventLoopGroup worker;
 
     /**
      * Constructs a network server using the supplied address
@@ -35,9 +33,8 @@ public class NetworkServer extends Thread {
     @Override
     public void run() {
         synchronized (address) {
-            boss = new NioEventLoopGroup();
-            worker = new NioEventLoopGroup();
-
+            EventLoopGroup boss = new NioEventLoopGroup();
+            EventLoopGroup worker = new NioEventLoopGroup();
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)

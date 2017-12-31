@@ -15,6 +15,12 @@ public class ServerConfirmTransactionPacket extends ProtocolPacket {
         // required empty constructor
     }
 
+    public ServerConfirmTransactionPacket(byte windowId, short actionId, boolean accepted) {
+        this.windowId = windowId;
+        this.actionId = actionId;
+        this.accepted = accepted;
+    }
+
     @Override
     public void onWrite(PistonOutput output) throws IOException {
         output.writeByte(windowId);

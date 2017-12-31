@@ -4,7 +4,6 @@ import org.laxio.piston.piston.exception.protocol.packet.PacketNotFoundException
 import org.laxio.piston.piston.exception.protocol.packet.UnsupportedPacketException;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
-import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.piston.util.map.ReverseHashMap;
 import org.laxio.piston.piston.util.map.ReverseMap;
@@ -16,15 +15,11 @@ import java.util.Map;
 
 public class ProtocolMap {
 
-    private final Protocol protocol;
-
     private final ReverseMap<Class<? extends Packet>, Integer> packetMap;
     private final Map<ProtocolState, Map<PacketDirection, Integer>> ids;
     private final Map<ProtocolState, Map<PacketDirection, ReverseMap<Integer, Class<? extends Packet>>>> packets;
 
-    public ProtocolMap(Protocol protocol) {
-        this.protocol = protocol;
-
+    public ProtocolMap() {
         this.packetMap = new ReverseHashMap<>();
         this.ids = new HashMap<>();
         this.packets = new HashMap<>();

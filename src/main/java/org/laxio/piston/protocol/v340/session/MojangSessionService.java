@@ -35,9 +35,13 @@ public class MojangSessionService implements MinecraftSessionService {
         this.server = server;
     }
 
+    public PistonServer getServer() {
+        return server;
+    }
+
     @Override
     public SessionResponse hasJoined(Profile profile, String serverId) throws SessionAuthenticationException {
-        return hasJoined(profile, serverId, server.getBindAddress().getAddress().getHostAddress());
+        return hasJoined(profile, serverId, null);
     }
 
     @Override
@@ -74,9 +78,17 @@ public class MojangSessionService implements MinecraftSessionService {
     }
 
     private URL build(Profile profile, String serverId, String ip) throws MalformedURLException {
-        return new URL(CHECK_URL.toString()
-                + "?username=" + profile.getName()
-                + "&serverId=" + serverId);
+        StringBuilder url = new StringBuilder(CHECK_URL.toString());
+        url.append("?username=");
+        url.append(profile.getName());
+        url.append("&serverId=");
+        url.append(serverId);
+        if (ip != null && ip.length() > 0) {
+            url.append("&ip=");
+            url.append(ip);
+        }
+
+        return new URL(url.toString());
     }
 
 }
