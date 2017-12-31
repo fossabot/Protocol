@@ -98,6 +98,15 @@ public abstract class ProtocolPacket implements Packet {
         }
     }
 
+    /**
+     * Used in tests
+     *
+     * @return Returns if this packet is locked
+     */
+    public boolean isLocked() {
+        return this.locked;
+    }
+
     public abstract String toString();
 
 }

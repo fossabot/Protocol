@@ -39,10 +39,13 @@ public class WindowItemsPacket extends ProtocolPacket {
         output.writeByte(windowId);
 
         output.writeShort((short) slots.size());
+        // TODO: Write implementation for slot read/write
+        throw new UnsupportedOperationException("Slots are not currently supported");
+
+        /*
         for (Slot slot : slots) {
-            // TODO: Write implementation for slot read/write
-            throw new UnsupportedOperationException("Slots are not currently supported");
         }
+        */
     }
 
     @Override

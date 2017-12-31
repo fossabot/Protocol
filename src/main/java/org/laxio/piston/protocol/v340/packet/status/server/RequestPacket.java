@@ -7,6 +7,7 @@ public class RequestPacket extends ProtocolPacket {
 
     @Override
     public void onRead(PistonInput input) {
+        // empty packet
     }
 
     @Override

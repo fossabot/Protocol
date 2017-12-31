@@ -1,13 +1,18 @@
 package org.laxio.piston.protocol.v340.netty.pipeline.inbound;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
+import org.laxio.piston.piston.util.Environment;
 import org.laxio.piston.protocol.v340.netty.NetworkClient;
 import org.laxio.piston.protocol.v340.stream.PistonByteBuf;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -28,11 +33,25 @@ public class PacketDecoder extends ByteToMessageDecoder {
             // PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
 
             int id = buffer.readVarInt();
+            if (Environment.isDebugMode()) {
+                ByteBuf clone = Unpooled.copiedBuffer(byteBuf);
+                byte[] data = new byte[clone.readableBytes()];
+                for (int i = 0; i < data.length; i++) {
+                    data[i] = clone.readByte();
+                }
+
+                Path file = Paths.get("packets/" + client.getState().name() + "-SERVERBOUND-" + id + ".packet");
+                Files.write(file, data);
+            }
 
             Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
             packet.setServer(client.getServer());
             packet.setConnection(client);
             packet.read(buffer);
+
+            if (Environment.isDebugMode()) {
+                client.getServer().getLogger().config("Received Packet #{}: {}", id, packet.toString());
+            }
 
             list.add(packet);
         }
