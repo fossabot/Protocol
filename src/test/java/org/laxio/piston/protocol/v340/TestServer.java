@@ -95,6 +95,11 @@ public class TestServer implements PistonServer {
     }
 
     @Override
+    public void runCommand(CommandSender sender, String command) {
+        throw new UnsupportedOperationException("Unavailable in test phase");
+    }
+
+    @Override
     public Aphelion<CommandSender> getAphelion() {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
