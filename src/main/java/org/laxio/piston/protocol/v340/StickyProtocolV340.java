@@ -112,6 +112,7 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, OpenWindowPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, WindowItemsPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, WindowPropertyPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, SetSlotPacket.class);
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
