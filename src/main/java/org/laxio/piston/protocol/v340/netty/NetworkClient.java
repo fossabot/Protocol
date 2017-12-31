@@ -9,6 +9,7 @@ import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.protocol.ProtocolState;
+import org.laxio.piston.piston.util.Environment;
 import org.laxio.piston.protocol.v340.netty.pipeline.ChannelInboundMessageAdapter;
 import org.laxio.piston.protocol.v340.netty.pipeline.encryption.PacketEncryption;
 import org.laxio.piston.protocol.v340.netty.pipeline.inbound.PacketDecrypter;
@@ -164,6 +165,13 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
             channel.writeAndFlush(packet);
         } else {
             channel.eventLoop().execute(() -> channel.writeAndFlush(packet));
+        }
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        if (Environment.isDebugMode()) {
+            cause.printStackTrace();
         }
     }
 

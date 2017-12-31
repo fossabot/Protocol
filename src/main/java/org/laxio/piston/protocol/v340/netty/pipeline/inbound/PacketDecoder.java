@@ -33,11 +33,12 @@ public class PacketDecoder extends ByteToMessageDecoder {
             PistonByteBuf buffer = new PistonByteBuf(byteBuf);
             // PistonInputStream stream = new PistonInputStream(new ByteBufInputStream(buffer.getBuf()));
 
-            int id = buffer.readVarInt();
+            final int id = buffer.readVarInt();
             if (Environment.isDebugMode()) {
+                final ByteBuf clone = Unpooled.copiedBuffer(byteBuf);
+
                 new Thread(() -> {
                     try {
-                        ByteBuf clone = Unpooled.copiedBuffer(byteBuf);
                         byte[] data = new byte[clone.readableBytes()];
                         for (int i = 0; i < data.length; i++) {
                             data[i] = clone.readByte();
@@ -48,7 +49,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                }).run();
+                }).start();
             }
 
             Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
