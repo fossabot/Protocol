@@ -1,1 +1,1 @@
-*.packet binary
+*.packet -text diff
