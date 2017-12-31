@@ -33,13 +33,7 @@ import java.util.Map;
  */
 public class StickyProtocolV340 implements Protocol {
 
-    private static final String MC_PROTOCOL_VERSION; // MC Version (Specification)
-    private static final String STICKY_PROTOCOL_VERSION; // Protocol Version (Implementation)
-
-    static {
-        MC_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getSpecificationVersion();
-        STICKY_PROTOCOL_VERSION = StickyProtocolV340.class.getPackage().getImplementationVersion();
-    }
+    public static final int PROTOCOL_VERSION = 340;
 
     private final ProtocolMap packets;
 
@@ -71,13 +65,8 @@ public class StickyProtocolV340 implements Protocol {
     }
 
     @Override
-    public String getVersion() {
-        return STICKY_PROTOCOL_VERSION;
-    }
-
-    @Override
-    public String getMinecraftVersion() {
-        return MC_PROTOCOL_VERSION;
+    public int getVersion() {
+        return PROTOCOL_VERSION;
     }
 
     private void init() {

@@ -44,6 +44,7 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
         this.server = server;
         this.compression = new CompressionState(-1);
         this.protocol = protocol;
+        this.protocolVersion = protocol.getVersion();
     }
 
     public boolean isPreparing() {
@@ -88,6 +89,10 @@ public class NetworkClient extends ChannelInboundMessageAdapter<Packet> implemen
 
     public Protocol getProtocol() {
         return protocol;
+    }
+
+    public void setProtocol(Protocol protocol) {
+        this.protocol = protocol;
     }
 
     public UserProfile getProfile() {

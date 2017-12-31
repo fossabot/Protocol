@@ -6,6 +6,7 @@ import org.laxio.piston.piston.protocol.Connection;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.stream.PistonInput;
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
+import org.laxio.piston.protocol.v340.StickyProtocolV340;
 
 import java.io.IOException;
 
@@ -17,8 +18,14 @@ public abstract class ProtocolPacket implements Packet {
 
     private boolean locked;
 
+    public int version = StickyProtocolV340.PROTOCOL_VERSION;
     private Connection connection;
     private PistonServer server;
+
+    @Override
+    public int getVersion() {
+        return version;
+    }
 
     @Override
     public Connection getConnection() {

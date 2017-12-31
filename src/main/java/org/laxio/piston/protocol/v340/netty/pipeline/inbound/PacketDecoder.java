@@ -8,6 +8,7 @@ import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.piston.util.Environment;
 import org.laxio.piston.protocol.v340.netty.NetworkClient;
+import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 import org.laxio.piston.protocol.v340.stream.PistonByteBuf;
 
 import java.nio.file.Files;
@@ -51,6 +52,11 @@ public class PacketDecoder extends ByteToMessageDecoder {
             }
 
             Packet packet = client.getProtocol().getPacket(client.getState(), PacketDirection.SERVERBOUND, id);
+            if (packet instanceof ProtocolPacket) {
+                ProtocolPacket pkt = (ProtocolPacket) packet;
+                pkt.version = client.getProtocolVersion();
+            }
+
             packet.setServer(client.getServer());
             packet.setConnection(client);
             packet.read(buffer);
