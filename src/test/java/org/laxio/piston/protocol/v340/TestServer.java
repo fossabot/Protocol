@@ -6,6 +6,7 @@ import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.command.CommandSender;
 import org.laxio.piston.piston.command.ConsoleCommandSender;
 import org.laxio.piston.piston.event.ListenerManager;
+import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.logging.Logger;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.session.MinecraftSessionService;
@@ -17,6 +18,11 @@ import java.security.KeyPair;
 import java.util.List;
 
 public class TestServer implements PistonServer {
+
+    @Override
+    public String getName() {
+        return "test";
+    }
 
     @Override
     public Version getVersion() {
@@ -95,6 +101,26 @@ public class TestServer implements PistonServer {
 
     @Override
     public CommandRegistration<CommandSender> getCommandRegistration() {
+        throw new UnsupportedOperationException("Unavailable in test phase");
+    }
+
+    @Override
+    public void handle(Exception ex) {
+        throw new PistonRuntimeException(ex);
+    }
+
+    @Override
+    public boolean start() {
+        throw new UnsupportedOperationException("Unavailable in test phase");
+    }
+
+    @Override
+    public boolean isRunning() {
+        throw new UnsupportedOperationException("Unavailable in test phase");
+    }
+
+    @Override
+    public void stop() {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
 
