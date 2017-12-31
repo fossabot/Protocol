@@ -15,11 +15,13 @@ public class SlotBlobFactory extends BlobFactory<SlotBlob> {
 
     @Override
     public SlotBlob read(PistonInput input, int index) {
+        // TODO: write implementation for slots
         throw new UnsupportedOperationException("Slot Blobs have not yet been implemented");
     }
 
     @Override
     public void write(PistonOutput output, SlotBlob blob) {
+        // TODO: write implementation for slots
         throw new UnsupportedOperationException("Slot Blobs have not yet been implemented");
     }
 
