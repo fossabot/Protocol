@@ -3,10 +3,10 @@ package org.laxio.piston.protocol.v340.netty.pipeline.inbound;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import org.laxio.piston.piston.protocol.Packet;
+import org.laxio.piston.piston.protocol.ProtocolState;
 import org.laxio.piston.piston.protocol.UnsupportedPacket;
 import org.laxio.piston.piston.translator.ProtocolTranslator;
 import org.laxio.piston.protocol.v340.netty.NetworkClient;
-import org.laxio.piston.protocol.v340.packet.handshake.server.HandshakePacket;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class PacketToNativeTranslator extends MessageToMessageDecoder<Packet> {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, Packet packet, List<Object> list) {
         NetworkClient client = (NetworkClient) packet.getConnection();
-        if (packet instanceof HandshakePacket) {
+        if (packet.getConnection().getState() != ProtocolState.PLAY) {
             list.add(packet);
             return;
         }
