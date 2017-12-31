@@ -31,7 +31,7 @@ public class ResponsePacket extends ProtocolPacket {
 
         JSONObject version = new JSONObject();
         version.put("name", "Piston");
-        version.put("protocol", 340);
+        version.put("protocol", getServer().getProtocol().getVersion());
         json.put("version", version);
 
         JSONObject players = new JSONObject();
