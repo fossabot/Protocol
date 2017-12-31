@@ -10,6 +10,7 @@ import org.laxio.piston.piston.logging.Logger;
 import org.laxio.piston.piston.protocol.Protocol;
 import org.laxio.piston.piston.session.MinecraftSessionService;
 import org.laxio.piston.piston.translator.ProtocolTranslator;
+import org.laxio.piston.piston.versioning.Version;
 
 import java.net.InetSocketAddress;
 import java.security.KeyPair;
@@ -18,12 +19,12 @@ import java.util.List;
 public class TestServer implements PistonServer {
 
     @Override
-    public String getVersion() {
+    public Version getVersion() {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
 
     @Override
-    public String getMinecraftVersion() {
+    public Version getMinecraftVersion() {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
 
@@ -33,7 +34,7 @@ public class TestServer implements PistonServer {
     }
 
     @Override
-    public Protocol getProtocol(int id) {
+    public Protocol getProtocol(int version) {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
 
@@ -44,6 +45,11 @@ public class TestServer implements PistonServer {
 
     @Override
     public List<ProtocolTranslator> getTranslators() {
+        throw new UnsupportedOperationException("Unavailable in test phase");
+    }
+
+    @Override
+    public boolean addTranslator(ProtocolTranslator translator) {
         throw new UnsupportedOperationException("Unavailable in test phase");
     }
 

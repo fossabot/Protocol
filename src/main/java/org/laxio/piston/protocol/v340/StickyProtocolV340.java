@@ -1,9 +1,9 @@
 package org.laxio.piston.protocol.v340;
 
+import org.laxio.piston.piston.PistonServer;
 import org.laxio.piston.piston.exception.PistonRuntimeException;
 import org.laxio.piston.piston.exception.protocol.packet.PacketNotFoundException;
 import org.laxio.piston.piston.exception.protocol.packet.UnsupportedPacketException;
-import org.laxio.piston.piston.logging.Logger;
 import org.laxio.piston.piston.protocol.Packet;
 import org.laxio.piston.piston.protocol.PacketDirection;
 import org.laxio.piston.piston.protocol.Protocol;
@@ -37,8 +37,24 @@ public class StickyProtocolV340 implements Protocol {
 
     private final ProtocolMap packets;
 
+    private PistonServer server;
+
     public StickyProtocolV340() {
         this.packets = new ProtocolMap();
+    }
+
+    @Override
+    public PistonServer getServer() {
+        return server;
+    }
+
+    @Override
+    public void setServer(PistonServer server) {
+        if (this.server != null) {
+            throw new UnsupportedOperationException("Server already set");
+        }
+
+        this.server = server;
         init();
     }
 
@@ -132,7 +148,7 @@ public class StickyProtocolV340 implements Protocol {
             int client = map1.get(PacketDirection.CLIENTBOUND).size();
             int total = server + client;
 
-            Logger.getGlobal().debug("Loaded {} packets for {}. SERVER[{}] CLIENT[{}]", total, state.name(), server, client);
+            this.server.getLogger().debug("Loaded {} packets for {}. SERVER[{}] CLIENT[{}]", total, state.name(), server, client);
         }
     }
 
