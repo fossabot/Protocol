@@ -132,7 +132,7 @@ public class StickyProtocolV340 implements Protocol {
             int client = map1.get(PacketDirection.CLIENTBOUND).size();
             int total = server + client;
 
-            Logger.getGlobal().config("Loaded {} packets for {}. SERVER[{}] CLIENT[{}]", total, state.name(), server, client);
+            Logger.getGlobal().debug("Loaded {} packets for {}. SERVER[{}] CLIENT[{}]", total, state.name(), server, client);
         }
     }
 

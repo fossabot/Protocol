@@ -63,7 +63,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
             packet.read(buffer);
 
             if (Environment.isDebugMode()) {
-                client.getServer().getLogger().config("Received Packet #{}: {}", id, packet.toString());
+                client.getServer().getLogger().debug("Received Packet #{}: {}", id, packet.toString());
             }
 
             list.add(packet);
