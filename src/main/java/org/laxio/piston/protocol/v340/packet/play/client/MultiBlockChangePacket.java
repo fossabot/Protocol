@@ -37,11 +37,7 @@ public class MultiBlockChangePacket extends ProtocolPacket {
 
     public MultiBlockChangePacket(Chunk chunk, List<BlockChange> changes) {
         this.chunk = chunk;
-
-        LockableLinkedList<BlockChange> list = new LockableLinkedList<>(changes);
-        list.setLocked(true);
-
-        this.changes = list;
+        this.changes = LockableLinkedList.createLocked(changes);
     }
 
     @Override

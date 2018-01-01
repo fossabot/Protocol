@@ -35,11 +35,7 @@ public class WindowItemsPacket extends ProtocolPacket {
 
     public WindowItemsPacket(byte windowId, List<Slot> slots) {
         this.windowId = windowId;
-
-        LockableLinkedList<Slot> list = new LockableLinkedList<>(slots);
-        list.setLocked(true);
-
-        this.slots = list;
+        this.slots = LockableLinkedList.createLocked(slots);
     }
 
     public byte getWindowId() {

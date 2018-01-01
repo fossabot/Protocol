@@ -32,10 +32,7 @@ public class ServerTabCompletePacket extends ProtocolPacket {
     }
 
     public ServerTabCompletePacket(List<String> matches) {
-        LockableLinkedList<String> list = new LockableLinkedList<>(matches);
-        list.setLocked(true);
-
-        this.matches = list;
+        this.matches = LockableLinkedList.createLocked(matches);
     }
 
     public List<String> getMatches() {
