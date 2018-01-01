@@ -139,6 +139,7 @@ public class StickyProtocolV340 implements Protocol {
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, ServerPluginMessagePacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, NamedSoundEffectPacket.class);
             this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, PlayDisconnectPacket.class);
+            this.packets.add(ProtocolState.PLAY, PacketDirection.CLIENTBOUND, EntityStatusPacket.class);
 
             // STATUS
             this.packets.add(ProtocolState.STATUS, PacketDirection.SERVERBOUND, RequestPacket.class);
