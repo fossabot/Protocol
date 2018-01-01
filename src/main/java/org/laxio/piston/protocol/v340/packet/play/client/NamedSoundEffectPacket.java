@@ -17,44 +17,70 @@ package org.laxio.piston.protocol.v340.packet.play.client;
          */
 
 import org.laxio.piston.piston.protocol.stream.PistonOutput;
+import org.laxio.piston.piston.world.Location;
 import org.laxio.piston.protocol.v340.packet.ProtocolPacket;
 
 import java.io.IOException;
 
-public class SetCooldownPacket extends ProtocolPacket {
+public class NamedSoundEffectPacket extends ProtocolPacket {
 
-    private int itemId;
-    private int cooldown;
+    private String soundName;
+    private int soundCategory;
+    private Location location;
+    private float volume;
+    private float pitch;
 
-    public SetCooldownPacket() {
+    public NamedSoundEffectPacket() {
         // required empty constructor
     }
 
-    public SetCooldownPacket(int itemId, int cooldown) {
-        this.itemId = itemId;
-        this.cooldown = cooldown;
+    public NamedSoundEffectPacket(String soundName, int soundCategory, Location location, float volume, float pitch) {
+        this.soundName = soundName;
+        this.soundCategory = soundCategory;
+        this.location = location;
+        this.volume = volume;
+        this.pitch = pitch;
     }
 
-    public int getItemId() {
-        return itemId;
+    public String getSoundName() {
+        return soundName;
     }
 
-    public int getCooldown() {
-        return cooldown;
+    public int getSoundCategory() {
+        return soundCategory;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public float getPitch() {
+        return pitch;
     }
 
     @Override
-    public void onWrite(PistonOutput output) throws IOException {
-        output.writeVarInt(itemId);
-        output.writeVarInt(cooldown);
+    public void write(PistonOutput output) throws IOException {
+        output.writeString(soundName);
+        output.writeVarInt(soundCategory);
+        output.writeInt((int) (location.getX() * 32D));
+        output.writeInt((int) (location.getY() * 32D));
+        output.writeInt((int) (location.getZ() * 32D));
+        output.writeFloat(volume);
+        output.writeFloat(pitch);
     }
 
     @Override
     public String toString() {
-        return "SetCooldownPacket{" +
-                "itemId=" + itemId +
-                ", cooldown=" + cooldown +
+        return "NamedSoundEffectPacket{" +
+                "soundName='" + soundName + '\'' +
+                ", soundCategory='" + soundCategory + '\'' +
+                ", location=" + location +
+                ", volume=" + volume +
+                ", pitch=" + pitch +
                 '}';
     }
-
 }
