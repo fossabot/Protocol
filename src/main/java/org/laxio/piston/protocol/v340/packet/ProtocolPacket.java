@@ -4,7 +4,7 @@ package org.laxio.piston.protocol.v340.packet;
          * #%L
          * Protocol
          * %%
-         * Copyright (C) 2017 Laxio
+         * Copyright (C) 2017 - 2018 Laxio
          * %%
          * This file is part of Piston, licensed under the MIT License (MIT).
          *
@@ -32,9 +32,8 @@ import java.io.IOException;
  */
 public abstract class ProtocolPacket implements Packet {
 
-    private boolean locked;
-
     public int version = StickyProtocolV340.PROTOCOL_VERSION;
+    private boolean locked;
     private Connection connection;
     private PistonServer server;
 
